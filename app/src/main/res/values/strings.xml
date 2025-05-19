@@ -11,7 +11,7 @@
     <string name="managerlogin">log in</string>
     <string name="addstore">add store</string>
     <string name="addproduct">add product to store</string>
-    <string name="removeproduct">remove product from Store</string>
+    <string name="removeproduct">remove product from store</string>
     <string name="statistics">show statistics</string>
     <string name="modifystock">modify stock</string>
     <string name="welcomemanager">welcome to manager mode!</string>
