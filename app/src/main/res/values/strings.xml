@@ -6,5 +6,7 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
+    <string name="getstarted">Get started</string>
+    <string name="manager">Are you a manager?</string>
+    <string name="managerlogin">Log in</string>
 </resources>
