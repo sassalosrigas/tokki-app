@@ -9,7 +9,7 @@
     tools:context=".CustomerMain">
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/customer_scroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,34 +24,22 @@
     </ScrollView>
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/customertoolbar"
+        android:id="@+id/customer_toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/customerlogo"
+        android:id="@+id/customer_logo"
         android:layout_width="65dp"
         android:layout_height="63dp"
-        app:layout_constraintStart_toStartOf="@+id/scrollView2"
-        app:layout_constraintTop_toTopOf="@+id/scrollView2"
+        app:layout_constraintStart_toStartOf="@+id/customer_scroll"
+        app:layout_constraintTop_toTopOf="@+id/customer_scroll"
         app:srcCompat="@drawable/img" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="666dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customertoolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
