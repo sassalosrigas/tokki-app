@@ -1,7 +1,6 @@
 package com.example.tokki;
 
 import static androidx.activity.result.ActivityResultLauncherKt.launch;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -32,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Entering Customer", Toast.LENGTH_SHORT).show();
-                //Customer customer = new Customer("rigas", "123", 37.986633, 23.734900);
+                Customer customer = new Customer("rigas", "123", 37.986633, 23.734900);
+                Intent intent = new Intent(MainActivity.this, CustomerMain.class);
+                startActivity(intent);
             }
         });
 
