@@ -9,4 +9,9 @@
     <string name="getstarted">Get started</string>
     <string name="manager">Are you a manager?</string>
     <string name="managerlogin">Log in</string>
+    <string name="addstore">Add store</string>
+    <string name="addproduct">Add product to store</string>
+    <string name="removeproduct">Remove product from Store</string>
+    <string name="statistics">Show statistics</string>
+    <string name="modifystock">Modify stock</string>
 </resources>
