@@ -1,6 +1,9 @@
 package com.example.tokki;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +22,15 @@ public class CustomerOrderConfirmation extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        findViewById(R.id.store_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(CustomerOrderConfirmation.this, "Your order has been placed", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CustomerOrderConfirmation.this, CustomerMain.class);
+                startActivity(intent);
+            }
         });
     }
 }

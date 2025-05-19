@@ -3,6 +3,7 @@ package com.example.tokki;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,5 +24,12 @@ public class CustomerStoreView extends AppCompatActivity {
             return insets;
         });
 
+        findViewById(R.id.store_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CustomerStoreView.this, CustomerOrderConfirmation.class);
+                startActivity(intent);
+            }
+        });
     }
 }
