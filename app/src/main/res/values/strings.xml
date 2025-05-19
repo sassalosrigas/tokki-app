@@ -6,12 +6,14 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="getstarted">Get started</string>
+    <string name="getstarted">get started</string>
     <string name="manager">Are you a manager?</string>
-    <string name="managerlogin">Log in</string>
-    <string name="addstore">Add store</string>
-    <string name="addproduct">Add product to store</string>
-    <string name="removeproduct">Remove product from Store</string>
-    <string name="statistics">Show statistics</string>
-    <string name="modifystock">Modify stock</string>
+    <string name="managerlogin">log in</string>
+    <string name="addstore">add store</string>
+    <string name="addproduct">add product to store</string>
+    <string name="removeproduct">remove product from Store</string>
+    <string name="statistics">show statistics</string>
+    <string name="modifystock">modify stock</string>
+    <string name="welcomemanager">welcome to manager mode!</string>
+    <string name="managermodedescription">choose an action from the options below :)</string>
 </resources>
