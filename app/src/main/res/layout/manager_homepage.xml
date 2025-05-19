@@ -5,13 +5,14 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/jet"
     tools:context=".ManagerMain">
 
     <Button
         android:id="@+id/addstore_button"
         android:layout_width="@dimen/managerbuttonwidth"
         android:layout_height="wrap_content"
-        android:layout_marginTop="181dp"
+        android:layout_marginTop="250dp"
         android:text="@string/addstore"
         app:layout_constraintBottom_toTopOf="@+id/addproduct_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,8 +24,9 @@
         android:id="@+id/addproduct_button"
         android:layout_width="@dimen/managerbuttonwidth"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:text="@string/addproduct"
+        app:layout_constraintBottom_toTopOf="@+id/removeproduct_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,8 +36,9 @@
         android:id="@+id/removeproduct_button"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:text="@string/removeproduct"
+        app:layout_constraintBottom_toTopOf="@+id/modifystock_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,8 +48,9 @@
         android:id="@+id/modifystock_button"
         android:layout_width="@dimen/managerbuttonwidth"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:text="@string/modifystock"
+        app:layout_constraintBottom_toTopOf="@+id/showstatistics_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +60,7 @@
         android:id="@+id/showstatistics_button"
         android:layout_width="@dimen/managerbuttonwidth"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="210dp"
         android:text="@string/statistics"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -64,5 +68,36 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/modifystock_button" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/customertoolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/customerlogo"
+        android:layout_width="65dp"
+        android:layout_height="63dp"
+        android:layout_marginBottom="668dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/img" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="666dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customertoolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
