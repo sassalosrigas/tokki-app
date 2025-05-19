@@ -16,4 +16,5 @@
     <string name="modifystock">modify stock</string>
     <string name="welcomemanager">welcome to manager mode!</string>
     <string name="managermodedescription">choose an action from the options below :)</string>
+    <string name="view_order">view order</string>
 </resources>
