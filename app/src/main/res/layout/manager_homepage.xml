@@ -12,7 +12,7 @@
         android:id="@+id/addstore_button"
         android:layout_width="@dimen/managerbuttonwidth"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="350dp"
         android:text="@string/addstore"
         app:layout_constraintBottom_toTopOf="@+id/addproduct_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,10 +73,12 @@
         android:id="@+id/customertoolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="102dp"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -85,18 +87,32 @@
         android:id="@+id/customerlogo"
         android:layout_width="65dp"
         android:layout_height="63dp"
-        android:layout_marginBottom="668dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/img" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/welcomemanagermsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="57dp"
+        android:text="@string/welcomemanager"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customertoolbar" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="240dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="666dp"
-        android:background="?android:attr/listDivider"
+        android:layout_marginBottom="529dp"
+        android:text="@string/managermodedescription"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.456"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customertoolbar" />
 
