@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
             Log.e("Assets", "Error listing assets", e);
         }
         new Thread(() -> {
-            boolean isAdded = Manager.addStore(MainActivity.this, "store.json");
-            Manager.addStore(MainActivity.this, "store2.json");
+            //boolean isAdded = Manager.addStore(MainActivity.this, "store.json");
+            boolean isAdded = Manager.addStore(MainActivity.this, "store2.json");
             Manager.addStore(MainActivity.this, "store3.json");
             Manager.addStore(MainActivity.this, "store4.json");
             Manager.addStore(MainActivity.this, "store5.json");
@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }).start();
-        //Toast.makeText(MainActivity.this, "added", Toast.LENGTH_LONG).show();
         findViewById(R.id.customerbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

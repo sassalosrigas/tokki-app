@@ -61,7 +61,7 @@ public class StoreAdapter extends BaseAdapter {
         holder.storeName.setText(store.getStoreName());
         holder.storeCategory.setText(store.getFoodCategory());
         holder.storeRating.setText(String.format("★ %.1f", store.getStars()));
-        String logoName = store.getStoreLogo(); // e.g. "logo_mcdonalds"
+        String logoName = store.getStoreLogo();
         int resId = context.getResources().getIdentifier(logoName, "drawable", context.getPackageName());
         holder.storeLogo.setImageResource(resId);
 

@@ -15,6 +15,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.tokki.java.Manager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -45,7 +46,6 @@ public class ManagerMain extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ManagerMain.this);
                 builder.setView(popupView);
 
-                // Show the dialog
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
@@ -53,15 +53,22 @@ public class ManagerMain extends AppCompatActivity {
                 MaterialButton cancelBtn = popupView.findViewById(R.id.cancelBtn);
                 TextInputEditText input = popupView.findViewById(R.id.storeNameEditText);
 
-                // Add button behavior
                 addBtn.setOnClickListener(bv -> {
                     String storeName = input.getText().toString();
-                    // Do something with the input
+                    new Thread(() -> {
+                        boolean isAdded = Manager.addStore(ManagerMain.this, storeName);
+
+                        runOnUiThread(() -> {
+                            if (isAdded) {
+                                Toast.makeText(ManagerMain.this, "Store added successfully", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(ManagerMain.this, "Failed to add store", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }).start();
                     Toast.makeText(ManagerMain.this, "Store added: " + storeName, Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 });
-
-                // Cancel button behavior
                 cancelBtn.setOnClickListener(bv -> dialog.dismiss());
             }
         });
@@ -72,7 +79,7 @@ public class ManagerMain extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ManagerMain.this, "Entering Add Product", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ManagerMain.this, AddProductPage.class);
+                Intent intent = new Intent(ManagerMain.this, ManagerStoreView.class);
                 startActivity(intent);
             }
         });
