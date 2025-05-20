@@ -72,7 +72,6 @@ public class CustomerMain extends AppCompatActivity {
                 View dialogView = inflater.inflate(R.layout.filter_popup, null);
 
                 EditText categoryInput = dialogView.findViewById(R.id.input_category);
-                // Min rating stars
                 List<ImageView> minStars = Arrays.asList(
                         dialogView.findViewById(R.id.min_star1),
                         dialogView.findViewById(R.id.min_star2),
