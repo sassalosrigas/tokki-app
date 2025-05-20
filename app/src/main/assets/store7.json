@@ -1,7 +1,7 @@
 {
   "storeName" : "O Gatos",
   "foodCategory" : "Small Plates",
-  "storeLogo" : "src/logos/gatos.png",
+  "storeLogo" : "gatos",
   "latitude" : 37.991665,
   "longitude" : 23.738007,
   "noOfVotes" : 300,

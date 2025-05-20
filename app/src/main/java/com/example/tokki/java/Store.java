@@ -1,4 +1,4 @@
-package com.example.tokki.main;
+package com.example.tokki.java;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

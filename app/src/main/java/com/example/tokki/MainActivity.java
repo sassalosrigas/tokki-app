@@ -1,8 +1,10 @@
 package com.example.tokki;
 
-import static androidx.activity.result.ActivityResultLauncherKt.launch;
+import static java.lang.Thread.sleep;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -12,7 +14,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.tokki.main.Customer;
+import com.example.tokki.java.Customer;
+import com.example.tokki.java.Manager;
+import com.example.tokki.java.Master;
+import com.example.tokki.java.Worker;
+
+import java.io.IOException;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +34,40 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        Master master = new Master();
+        master.openServer();
+        try {
+            sleep(4000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        Worker worker = new Worker(8081);
+        Master.getWorkers().add(worker);
+        worker.start();
+        Master.rebalanceStores();
+        try {
+            String[] files = getAssets().list("");
+            Log.d("Assets", "All files: " + Arrays.toString(files));
+        } catch (IOException e) {
+            Log.e("Assets", "Error listing assets", e);
+        }
+        new Thread(() -> {
+            boolean isAdded = Manager.addStore(MainActivity.this, "store.json");
+            Manager.addStore(MainActivity.this, "store2.json");
+            Manager.addStore(MainActivity.this, "store3.json");
+            Manager.addStore(MainActivity.this, "store4.json");
+            Manager.addStore(MainActivity.this, "store5.json");
+            Manager.addStore(MainActivity.this, "store6.json");
+            Manager.addStore(MainActivity.this, "store7.json");
+            runOnUiThread(() -> {
+                if (isAdded) {
+                    Toast.makeText(MainActivity.this, "Store added successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Failed to add store", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }).start();
+        //Toast.makeText(MainActivity.this, "added", Toast.LENGTH_LONG).show();
         findViewById(R.id.customerbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

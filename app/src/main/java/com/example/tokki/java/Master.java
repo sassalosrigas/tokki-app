@@ -1,4 +1,4 @@
-package com.example.tokki.main;
+package com.example.tokki.java;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -14,7 +14,10 @@ public class Master {
 
     public Master() {
         this.config = new Properties();
-
+        Reducer reducer = new Reducer(9090, this); // Use an appropriate port
+        reducer.start();
+        //this.openServer();
+        /*
         try (InputStream input = new FileInputStream("src/main/config.properties")) {
             config.load(input);
             int nodeCount = Integer.parseInt(config.getProperty("nodeCount"));
@@ -22,6 +25,8 @@ public class Master {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+         */
     }
 
     public Master(int nodeCount, int workersPerNode) {
@@ -61,7 +66,7 @@ public class Master {
     }
 
 
-    void openServer() {
+    public void openServer() {
         new Thread(()-> {
             try {
                 System.out.println("Opening server...");
@@ -132,7 +137,7 @@ public class Master {
     }
 
     public static void registerWorker() throws IOException {
-        Socket masterSocket = new Socket("localhost", 8080);  // Connect to Master
+        Socket masterSocket = new Socket("10.0.2.2", 8080);  // Connect to Master
         ObjectOutputStream out = new ObjectOutputStream(masterSocket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(masterSocket.getInputStream());
         out.writeObject(new WorkerFunctions("REGISTER"));

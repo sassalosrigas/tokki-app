@@ -1,4 +1,4 @@
-package com.example.tokki.main;
+package com.example.tokki.java;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -40,10 +40,11 @@ public class Customer implements Serializable {
         this.latitude = latitude;
     }
 
+    /*
     public void showNearbyStores(){
-        /*
+
             Deixnei ta katasthmata se apostash 5km apo ton pelath
-         */
+
         try{
             Socket socket = new Socket("localhost", 8080);
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
@@ -68,6 +69,36 @@ public class Customer implements Serializable {
             throw new RuntimeException(e);
         }
     }
+    */
+
+    public List<Store> showNearbyStores(){
+        /*
+            Deixnei ta katasthmata se apostash 5km apo ton pelath
+         */
+        try{
+            List<Store> stores = null;
+            Socket socket = new Socket("127.0.0.1", 8080);
+            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+            out.writeObject(new WorkerFunctions("SHOW_STORES", this));
+            out.flush();
+            Object response = in.readObject();
+            if(response instanceof ArrayList){
+                stores = (List<Store>) response;
+            }
+            out.close();
+            in.close();
+            socket.close();
+            return stores;
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public void buyProducts(Scanner input){
         /*

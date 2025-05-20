@@ -1,4 +1,4 @@
-package com.example.tokki.main;
+package com.example.tokki.java;
 
 import java.io.*;
 import java.net.*;

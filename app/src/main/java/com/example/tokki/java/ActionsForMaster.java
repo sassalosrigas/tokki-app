@@ -1,4 +1,4 @@
-package com.example.tokki.main;
+package com.example.tokki.java;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -375,7 +375,7 @@ public class ActionsForMaster extends Thread {
 
     private Object forwardToWorker(Worker worker, WorkerFunctions request)
             throws IOException, ClassNotFoundException {
-        try (Socket workerSocket = new Socket("localhost", worker.getPort());
+        try (Socket workerSocket = new Socket("127.0.0.1", worker.getPort());
              ObjectOutputStream workerOut = new ObjectOutputStream(workerSocket.getOutputStream());
              ObjectInputStream workerIn = new ObjectInputStream(workerSocket.getInputStream())) {
 

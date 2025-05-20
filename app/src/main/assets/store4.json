@@ -1,7 +1,7 @@
 {
   "storeName" : "Serial Grillers",
   "foodCategory" : "Burger",
-  "storeLogo" : "src/logos/serialgrillers.png",
+  "storeLogo" : "serialgrillers",
   "latitude" : 37.983344,
   "longitude" : 23.735589,
   "noOfVotes" : 20,

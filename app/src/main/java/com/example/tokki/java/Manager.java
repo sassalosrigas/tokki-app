@@ -1,4 +1,7 @@
-package com.example.tokki.main;
+package com.example.tokki.java;
+import android.content.Context;
+import android.util.Log;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -20,7 +23,7 @@ public class Manager{
             Store newStore = JsonHandler.readStoreFromJson(filepath);
             newStore.setFilepath(filepath);
             try{
-                Socket socket = new Socket(InetAddress.getByName("0.0.0.0"), 8080);
+                Socket socket = new Socket(InetAddress.getByName("10.0.2.2"), 8080);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
                 out.writeObject(new WorkerFunctions("ADD_STORE",newStore));
@@ -44,6 +47,40 @@ public class Manager{
         } catch (Exception e) {
             System.out.println("An unexpected error occurred: " + e.getMessage());
         }
+    }
+
+    public static boolean addStore(Context context, String filename) {
+        Log.d("Manager", "Attempting to add store from file: " + filename);
+            try {
+                Store newStore = JsonHandler.readStoreFromAssets(context, filename);
+                newStore.setFilepath(filename);
+
+                Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
+                ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+
+                out.writeObject(new WorkerFunctions("ADD_STORE", newStore));
+                out.flush();
+
+                Object response = in.readObject();
+
+                if (response instanceof Store) {
+                    Log.d("AddStore", "Store " + newStore.getStoreName() + " added successfully.");
+                    out.close();
+                    in.close();
+                    socket.close();
+                    return true;
+                } else {
+                    Log.d("AddStore", "Response: " + response);
+                }
+
+                out.close();
+                in.close();
+                socket.close();
+            } catch (Exception e) {
+                Log.e("AddStore", "Error adding store: " + e.getMessage(), e);
+            }
+        return false;
     }
 
     public static Product addProduct(Scanner input){

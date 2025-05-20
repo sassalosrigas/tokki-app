@@ -1,7 +1,7 @@
 {
   "storeName" : "CC Pasta",
   "foodCategory" : "Pasta",
-  "storeLogo" : "src/logos/ccpasta.png",
+  "storeLogo" : "ccpasta",
   "latitude" : 37.988147,
   "longitude" : 23.738907,
   "noOfVotes" : 40,

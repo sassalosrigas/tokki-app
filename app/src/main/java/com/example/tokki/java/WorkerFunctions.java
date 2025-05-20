@@ -1,5 +1,6 @@
-package com.example.tokki.main;
+package com.example.tokki.java;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class WorkerFunctions implements Serializable {
@@ -13,7 +14,8 @@ public class WorkerFunctions implements Serializable {
     String name2, name3;
     int num;
     double double1,double2;
-
+    @Serial
+    private static final long serialVersionUID = 1L;  // Explicit version UID
     public WorkerFunctions(String operation, Object object) {
         this.operation = operation;
         this.object = object;

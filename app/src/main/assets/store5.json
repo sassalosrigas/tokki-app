@@ -1,7 +1,7 @@
 {
   "storeName" : "McDonald's",
   "foodCategory" : "Burger",
-  "storeLogo" : "src/logos/mcdonalds.png",
+  "storeLogo" : "mcdonalds",
   "latitude" : 37.979691,
   "longitude" : 23.731747,
   "noOfVotes" : 45,

@@ -1,7 +1,7 @@
 {
   "storeName" : "PizzaLab",
   "foodCategory" : "Pizza",
-  "storeLogo" : "src/logos/pizzalab.png",
+  "storeLogo" : "pizzalab",
   "latitude" : 37.990261,
   "longitude" : 23.739935,
   "noOfVotes" : 15,
