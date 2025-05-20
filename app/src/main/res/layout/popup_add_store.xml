@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+
     <TextView
         android:id="@+id/addstoremsg2"
         android:layout_width="wrap_content"
