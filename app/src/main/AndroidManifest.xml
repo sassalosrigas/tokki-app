@@ -16,6 +16,9 @@
             android:name=".CustomerOrderConfirmation"
             android:exported="false" />
         <activity
+            android:name=".ManagerStoreView"
+            android:exported="false" />
+        <activity
             android:name=".CustomerStoreView"
             android:exported="false" />
         <activity

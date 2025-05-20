@@ -51,12 +51,12 @@ public class CustomerStoreView extends AppCompatActivity {
             if (resId != 0) {
                 storeLogo.setImageResource(resId);
             } else {
-                storeLogo.setImageResource(R.drawable.img); // Default image
+                storeLogo.setImageResource(R.drawable.img);
             }
 
             storeButton.setOnClickListener(v -> {
                 Intent intent = new Intent(CustomerStoreView.this, CustomerOrderConfirmation.class);
-                intent.putExtra("STORE_DATA", store); // Pass store to next activity if needed
+                intent.putExtra("STORE_DATA", store);
                 startActivity(intent);
             });
         } else {
