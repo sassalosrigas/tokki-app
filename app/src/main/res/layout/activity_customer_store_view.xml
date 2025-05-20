@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -8,53 +9,54 @@
     android:background="@color/jet"
     tools:context=".CustomerStoreView">
 
+    <!-- Toolbar with logo -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="75dp"
-        android:layout_height="63dp"
-        app:srcCompat="@drawable/img" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="75dp"
+            android:layout_height="63dp"
+            app:srcCompat="@drawable/img" />
+    </androidx.appcompat.widget.Toolbar>
 
+    <!-- Store Information Section -->
     <ImageView
         android:id="@+id/store_logo2"
         android:layout_width="121dp"
         android:layout_height="92dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="274dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
         tools:srcCompat="@tools:sample/avatars" />
-
 
     <TextView
         android:id="@+id/store_tittle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="211dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:text="name"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/store_category_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/store_logo2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/store_logo2" />
 
     <TextView
         android:id="@+id/store_category_main"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="193dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="category"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,14 +67,10 @@
         android:id="@+id/store_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="613dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="rating"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/store_button"
-        app:layout_constraintEnd_toStartOf="@+id/store_price"
         app:layout_constraintStart_toEndOf="@+id/store_logo2"
         app:layout_constraintTop_toBottomOf="@+id/store_category_main" />
 
@@ -80,35 +78,34 @@
         android:id="@+id/store_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="195dp"
-        android:layout_marginEnd="151dp"
-        android:layout_marginBottom="611dp"
+        android:layout_marginEnd="16dp"
         android:text="price"
         android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/store_rating" />
+
+    <!-- ListView for Products -->
+    <ListView
+        android:id="@+id/products_list_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp"
         app:layout_constraintBottom_toTopOf="@+id/store_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/store_rating"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/store_logo2" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="store scroll">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
-
+    <!-- Order Button -->
     <androidx.cardview.widget.CardView
         android:id="@+id/store_button"
-        android:layout_width="395dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="825dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
         app:cardCornerRadius="16dp"
@@ -116,7 +113,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@color/black"
         app:strokeWidth="1dp">
 
