@@ -1,5 +1,7 @@
 package com.example.tokki;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -52,5 +54,18 @@ public class CustomerMain extends AppCompatActivity {
                 }
             });
         }).start();
+
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            // Get the clicked store from your ArrayList
+            Store clickedStore = nearbyStores.get(position);
+
+            Toast.makeText(CustomerMain.this,
+                    "Selected: " + clickedStore.getStoreName(),
+                    Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(CustomerMain.this, CustomerStoreView.class);
+            intent.putExtra("STORE", clickedStore);
+            startActivity(intent);
+        });
     }
 }

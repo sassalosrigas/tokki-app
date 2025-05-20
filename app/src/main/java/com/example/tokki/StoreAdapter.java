@@ -64,8 +64,6 @@ public class StoreAdapter extends BaseAdapter {
         String logoName = store.getStoreLogo(); // e.g. "logo_mcdonalds"
         int resId = context.getResources().getIdentifier(logoName, "drawable", context.getPackageName());
         holder.storeLogo.setImageResource(resId);
-        // You can set store logo here if available
-        // holder.storeLogo.setImageResource(...);
 
         return convertView;
     }
