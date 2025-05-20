@@ -11,6 +11,14 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/modifystock_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="77dp"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
         app:layout_constraintBottom_toTopOf="@+id/stats_button"
