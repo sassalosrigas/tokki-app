@@ -7,25 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".CustomerMain">
 
-    <ScrollView
-        android:id="@+id/customer_scroll"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/jet"
-        android:contentDescription="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/customer_toolbar"
         android:layout_width="0dp"
@@ -33,10 +14,17 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/customerlogo"
+            android:layout_width="65dp"
+            android:layout_height="63dp"
+            android:layout_marginStart="8dp"
+            app:srcCompat="@drawable/img" />
+    </androidx.appcompat.widget.Toolbar>
 
     <View
         android:id="@+id/divider"
@@ -45,39 +33,13 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customer_toolbar"
-        app:strokeColor="@color/black"
-        app:strokeWidth="1dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/pink"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_weight="1"
-                android:text="store test"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:foreground="@android:drawable/ic_media_play"
-                app:tint="@color/gray" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toBottomOf="@+id/customer_toolbar" />
 
     <ListView
         android:id="@+id/storesListView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/jet"
         android:divider="@android:color/transparent"
         android:dividerHeight="8dp"
         android:padding="8dp"
@@ -86,14 +48,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
-    <!-- Optional: Keep your logo if you want it in the toolbar -->
-    <ImageView
-        android:id="@+id/customerlogo"
-        android:layout_width="65dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/customertoolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/customertoolbar"
-        app:srcCompat="@drawable/img" />
 </androidx.constraintlayout.widget.ConstraintLayout>

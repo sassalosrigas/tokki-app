@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="@color/black"
         app:strokeWidth="1dp"
-        style="@style/button1">
+        style="@style/Widget.AppCompat.Button">
 
         <LinearLayout
             android:layout_width="match_parent"
