@@ -1,11 +1,18 @@
 package com.example.tokki;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioGroup;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,6 +24,7 @@ import com.example.tokki.java.Customer;
 import com.example.tokki.java.Store;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CustomerMain extends AppCompatActivity {
@@ -54,6 +62,114 @@ public class CustomerMain extends AppCompatActivity {
                 }
             });
         }).start();
+
+        Button filterButton = findViewById(R.id.button_filter);
+
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater inflater = LayoutInflater.from(CustomerMain.this);
+                View dialogView = inflater.inflate(R.layout.filter_popup, null);
+
+                EditText categoryInput = dialogView.findViewById(R.id.input_category);
+                List<ImageView> minStars = Arrays.asList(
+                        dialogView.findViewById(R.id.min_star1),
+                        dialogView.findViewById(R.id.min_star2),
+                        dialogView.findViewById(R.id.min_star3),
+                        dialogView.findViewById(R.id.min_star4),
+                        dialogView.findViewById(R.id.min_star5)
+                );
+
+                List<ImageView> maxStars = Arrays.asList(
+                        dialogView.findViewById(R.id.max_star1),
+                        dialogView.findViewById(R.id.max_star2),
+                        dialogView.findViewById(R.id.max_star3),
+                        dialogView.findViewById(R.id.max_star4),
+                        dialogView.findViewById(R.id.max_star5)
+                );
+
+                final int[] selectedMinRating = {0};
+                final int[] selectedMaxRating = {5};
+
+                for (int i = 0; i < minStars.size(); i++) {
+                    final int rating = i + 1;
+                    minStars.get(i).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            selectedMinRating[0] = rating;
+                            updateStars(minStars, rating);
+                        }
+                    });
+                }
+
+                for (int i = 0; i < maxStars.size(); i++) {
+                    final int rating = i + 1;
+                    maxStars.get(i).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            selectedMaxRating[0] = rating;
+                            updateStars(maxStars, rating);
+                        }
+                    });
+                }
+
+                RadioGroup priceGroup = dialogView.findViewById(R.id.price_filter_group);
+
+                AlertDialog dialog = new AlertDialog.Builder(CustomerMain.this)
+                        .setView(dialogView)
+                        .setCancelable(false)
+                        .create();
+
+                Button cancelButton = dialogView.findViewById(R.id.button_cancel);
+                Button applyButton = dialogView.findViewById(R.id.button_apply);
+
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                applyButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String category = categoryInput.getText().toString().trim();
+                        int minStars = selectedMinRating[0];
+                        int maxStars = selectedMaxRating[0];
+                        int priceLevel;
+
+                        int checkedId = priceGroup.getCheckedRadioButtonId();
+                        if (checkedId == R.id.price_1) {
+                            priceLevel = 1;
+                        } else if (checkedId == R.id.price_2) {
+                            priceLevel = 2;
+                        } else if (checkedId == R.id.price_3) {
+                            priceLevel = 3;
+                        } else {
+                            priceLevel = 0;
+                        }
+
+                        //applyStoreFilters(category, minStars, maxStars, priceLevel);
+
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
+
+            private void updateStars(List<ImageView> stars, int count) {
+                for (int i = 0; i < stars.size(); i++) {
+                    if (i < count) {
+                        stars.get(i).setImageResource(R.drawable.star_filled);
+                    } else {
+                        stars.get(i).setImageResource(R.drawable.star_outline);
+                    }
+                }
+            }
+
+        });
+
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
             // Get the clicked store from your ArrayList
