@@ -13,6 +13,27 @@
         android:theme="@style/Theme.Tokki"
         tools:targetApi="31">
         <activity
+            android:name=".CustomerOrderConfirmation"
+            android:exported="false" />
+        <activity
+            android:name=".CustomerStoreView"
+            android:exported="false" />
+        <activity
+            android:name=".StatisticsPage"
+            android:exported="false" />
+        <activity
+            android:name=".ModifyStockPage"
+            android:exported="false" />
+        <activity
+            android:name=".RemoveProductPage"
+            android:exported="false" />
+        <activity
+            android:name=".AddProductPage"
+            android:exported="false" />
+        <activity
+            android:name=".AddStorePage"
+            android:exported="false" />
+        <activity
             android:name=".ManagerMain"
             android:exported="true" />
         <activity
