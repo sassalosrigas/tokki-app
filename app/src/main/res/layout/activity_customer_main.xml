@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/jet"
     tools:context=".CustomerMain">
 
     <androidx.appcompat.widget.Toolbar
@@ -35,10 +36,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customer_toolbar" />
 
+    <Button
+        android:id="@+id/button_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/filter"
+        app:layout_constraintBottom_toTopOf="@+id/storesListView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/customer_toolbar" />
+
+
     <ListView
         android:id="@+id/storesListView"
         android:layout_width="411dp"
-        android:layout_height="767dp"
+        android:layout_height="739dp"
         android:background="@color/jet"
         android:divider="@android:color/transparent"
         android:dividerHeight="8dp"

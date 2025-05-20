@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/jet"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/category"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/input_category"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/eg_category"
+        android:inputType="text"
+        android:textColorHint="@color/white" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:text="@string/rating"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/rating_min_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/min_star1"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/star_outline" />
+
+        <ImageView
+            android:id="@+id/min_star2"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/star_outline" />
+
+        <ImageView
+            android:id="@+id/min_star3"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/star_outline" />
+
+        <ImageView
+            android:id="@+id/min_star4"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/star_outline" />
+
+        <ImageView
+            android:id="@+id/min_star5"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/star_outline" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rating_max_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/max_star1"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/star_outline" />
+
+        <ImageView
+            android:id="@+id/max_star2"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/star_outline" />
+
+        <ImageView
+            android:id="@+id/max_star3"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/star_outline" />
+
+        <ImageView
+            android:id="@+id/max_star4"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/star_outline" />
+
+        <ImageView
+            android:id="@+id/max_star5"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/star_outline" />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:text="@string/price_range"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/price_filter_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/price_1"
+            android:layout_width="107dp"
+            android:layout_height="match_parent"
+            android:text="@string/one_dollar"
+            android:textColor="@color/white" />
+
+        <RadioButton
+            android:id="@+id/price_2"
+            android:layout_width="107dp"
+            android:layout_height="match_parent"
+            android:text="@string/two_dollars"
+            android:textColor="@color/white" />
+
+        <RadioButton
+            android:id="@+id/price_3"
+            android:layout_width="107dp"
+            android:layout_height="match_parent"
+            android:text="@string/three_dollars"
+            android:textColor="@color/white" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel" />
+
+        <Button
+            android:id="@+id/button_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/apply_filters" />
+    </LinearLayout>
+</LinearLayout>
