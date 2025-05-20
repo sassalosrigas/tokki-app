@@ -1,7 +1,6 @@
 package com.example.tokki;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -11,9 +10,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.tokki.R;
-import com.example.tokki.StoreAdapter;
-import com.example.tokki.java.Customer;
 import com.example.tokki.java.Store;
 import com.example.tokki.java.Manager;
 
@@ -64,13 +60,23 @@ public class ManagerStoreView extends AppCompatActivity {
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Store clickedStore = allStores.get(position);
 
-            Toast.makeText(ManagerStoreView.this,
-                    "Selected: " + clickedStore.getStoreName(),
-                    Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(ManagerStoreView.this, AddProductPage.class);
-            intent.putExtra("STORE", clickedStore);
-            startActivity(intent);
+            // Create dialog
+            new androidx.appcompat.app.AlertDialog.Builder(ManagerStoreView.this)
+                    .setTitle("Choose Action")
+                    .setMessage("What would you like to do with " + clickedStore.getStoreName() + "?")
+                    .setPositiveButton("Add New Product", (dialog, which) -> {
+                        Intent intent = new Intent(ManagerStoreView.this, AddProductActivity.class);
+                        intent.putExtra("STORE", clickedStore);
+                        startActivity(intent);
+                    })
+                    .setNegativeButton("View Offline Products", (dialog, which) -> {
+                        Intent intent = new Intent(ManagerStoreView.this, OfflineProductView.class); // Replace with your actual class
+                        intent.putExtra("STORE", clickedStore);
+                        startActivity(intent);
+                    })
+                    .setNeutralButton("Cancel", null)
+                    .show();
         });
+
     }
 }

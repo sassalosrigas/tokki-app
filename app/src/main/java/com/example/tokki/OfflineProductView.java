@@ -13,7 +13,7 @@ import androidx.cardview.widget.CardView;
 import com.example.tokki.java.Product;
 import com.example.tokki.java.Store;
 
-public class AddProductPage extends AppCompatActivity {
+public class OfflineProductView extends AppCompatActivity {
 
     private ImageView storeLogo;
     private TextView storeTitle;
@@ -23,12 +23,12 @@ public class AddProductPage extends AppCompatActivity {
     private CardView storeButton;
 
     private ListView productsListView;
-    private ProductAdapter productAdapter;
+    private ManagerProductAdapter productAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_product_page);
+        setContentView(R.layout.activity_offline_product_view);
 
         storeLogo = findViewById(R.id.store_logo2);
         storeTitle = findViewById(R.id.store_tittle);
@@ -55,7 +55,7 @@ public class AddProductPage extends AppCompatActivity {
             }
 
             storeButton.setOnClickListener(v -> {
-                Intent intent = new Intent(CustomerStoreView.this, CustomerOrderConfirmation.class);
+                Intent intent = new Intent(OfflineProductView.this, CustomerOrderConfirmation.class);
                 intent.putExtra("STORE_DATA", store);
                 startActivity(intent);
             });
@@ -65,7 +65,7 @@ public class AddProductPage extends AppCompatActivity {
         }
 
         productsListView = findViewById(R.id.products_list_view);
-        productAdapter = new ProductAdapter(this, store.getProducts());
+        productAdapter = new ManagerProductAdapter(this, store.getProducts());
         productsListView.setAdapter(productAdapter);
 
         productsListView.setOnItemClickListener((parent, view, position, id) -> {

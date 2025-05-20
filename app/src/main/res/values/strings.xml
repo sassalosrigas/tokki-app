@@ -21,5 +21,6 @@
     <string name="confirm_order">confirm order</string>
     <string name="addstoretext">time to add your store...</string>
     <string name="addstoresubtext">paste the json file path below.</string>
-
+    <string name="addnewproduct">add a new product</string>
+    <string name="seeofflineproducts">view offline products</string>
 </resources>
