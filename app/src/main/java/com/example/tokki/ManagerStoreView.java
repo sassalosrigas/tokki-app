@@ -15,7 +15,9 @@ import com.example.tokki.R;
 import com.example.tokki.StoreAdapter;
 import com.example.tokki.java.Customer;
 import com.example.tokki.java.Store;
+import com.example.tokki.java.Manager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +25,7 @@ public class ManagerStoreView extends AppCompatActivity {
 
     private ListView listView;
     private StoreAdapter storeAdapter;
-    private List<Store> nearbyStores = new ArrayList<>();
+    private List<Store> allStores = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,32 +39,36 @@ public class ManagerStoreView extends AppCompatActivity {
         });
 
         listView = findViewById(R.id.storesListView);
-        storeAdapter = new StoreAdapter(this, nearbyStores);
+        storeAdapter = new StoreAdapter(this, allStores);
         listView.setAdapter(storeAdapter);
 
-        Customer customer = new Customer("rigas", "123", 37.986633, 23.734900);
-
         new Thread(() -> {
-            List<Store> stores = customer.showNearbyStores();
-            runOnUiThread(() -> {
-                if (stores != null && !stores.isEmpty()) {
-                    nearbyStores.clear();
-                    nearbyStores.addAll(stores);
-                    storeAdapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(ManagerStoreView.this, "No stores found nearby", Toast.LENGTH_SHORT).show();
-                }
-            });
+            try {
+                final List<Store> stores = Manager.showAllStores();
+                runOnUiThread(() -> {
+                    if (stores != null && !stores.isEmpty()) {
+                        allStores.clear();
+                        allStores.addAll(stores);
+                        storeAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(ManagerStoreView.this, "No stores found nearby", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }).start();
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            Store clickedStore = nearbyStores.get(position);
+            Store clickedStore = allStores.get(position);
 
             Toast.makeText(ManagerStoreView.this,
                     "Selected: " + clickedStore.getStoreName(),
                     Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(ManagerStoreView.this, CustomerStoreView.class);
+            Intent intent = new Intent(ManagerStoreView.this, AddProductPage.class);
             intent.putExtra("STORE", clickedStore);
             startActivity(intent);
         });
