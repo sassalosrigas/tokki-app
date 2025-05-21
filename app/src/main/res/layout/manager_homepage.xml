@@ -36,8 +36,15 @@
             android:orientation="horizontal"
             android:padding="16dp">
 
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/edit_24" />
+
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="271dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
@@ -78,8 +85,15 @@
             android:orientation="horizontal"
             android:padding="16dp">
 
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/remove" />
+
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="271dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
@@ -123,8 +137,15 @@
             android:orientation="horizontal"
             android:padding="16dp">
 
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ionstatsbars" />
+
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="271dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
@@ -165,8 +186,15 @@
             android:orientation="horizontal"
             android:padding="16dp">
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/add" />
+
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="271dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
@@ -207,8 +235,15 @@
             android:orientation="horizontal"
             android:padding="16dp">
 
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/add" />
+
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="271dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
