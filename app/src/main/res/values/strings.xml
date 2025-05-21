@@ -41,5 +41,6 @@
     <string name="insert_price_here">Insert price here</string>
     <string name="insert_category_here">Insert category here</string>
     <string name="categoryy">Category</string>
+    <string name="clear_cart">clear cart</string>
 
 </resources>

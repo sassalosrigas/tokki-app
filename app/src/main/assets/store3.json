@@ -9,7 +9,7 @@
   "products" : [ {
     "productName" : "Xoirini Mprizola",
     "productType" : "Psito",
-    "availableAmount" : 2000,
+    "availableAmount" : 2,
     "price" : 3.0
   }, {
     "productName" : "Mamos",
