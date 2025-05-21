@@ -182,6 +182,24 @@ public class Manager{
         return stores;
     }
 
+    public static List<Product> getOfflineProducts(Store store) throws IOException, ClassNotFoundException {
+        Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+
+        out.writeObject(new WorkerFunctions("GET_OFFLINE_PRODUCTS", store));
+        out.flush();
+        Object response = in.readObject();
+        ArrayList<Product> products = null;
+        if(response instanceof ArrayList){
+            products = (ArrayList<Product>) response;
+        }
+        out.close();
+        in.close();
+        socket.close();
+        return products;
+    }
+
     public static void addProductToStore(Scanner input) {
         try {
             Socket socket = new Socket(InetAddress.getByName("0.0.0.0"), 8080);
@@ -295,6 +313,14 @@ public class Manager{
         }
     }
 
+    public static void addProductToStore(Store store, Product product) throws IOException, ClassNotFoundException {
+        Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+        out.writeObject(new WorkerFunctions("ADD_PRODUCT", store, product));
+        out.flush();
+        Object response = in.readObject();
+    }
     public static void salesPerProduct(Scanner input){
         /*
             Methodos gia epilogh statistikou kai emfanish tou
@@ -442,6 +468,21 @@ public class Manager{
             throw new RuntimeException(e);
         }
     }
+
+    public static void modifyAvailability(Store store, Product product, int quantity) throws IOException, ClassNotFoundException {
+        Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+        out.writeObject(new WorkerFunctions("MODIFY_AVAILABILITY",store,product,quantity));
+        Object response = in.readObject();
+        if(response instanceof Store){
+            System.out.println("Server response: " + ((Store) response).getStoreName());
+        }
+        out.close();
+        in.close();
+        socket.close();
+    }
+
 
     public static List<Store> showAllStores() throws IOException, ClassNotFoundException {
         List<Store> stores = null;

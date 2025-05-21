@@ -156,12 +156,7 @@ public class CustomerMain extends AppCompatActivity {
                         }
                         new Thread(() -> {
                             Log.d("Category", category);
-                            List<Store> stores = customer.filterStores(
-                                    category,
-                                    minStars,
-                                    maxStars,
-                                    prange
-                            );
+                            List<Store> stores = customer.filterStores(category, minStars, maxStars, prange);
 
                             runOnUiThread(() -> {
                                 if (stores != null && !stores.isEmpty()) {
@@ -169,20 +164,15 @@ public class CustomerMain extends AppCompatActivity {
                                     nearbyStores.addAll(stores);
                                     storeAdapter.notifyDataSetChanged();
                                 } else {
-                                    Toast.makeText(
-                                            CustomerMain.this,
-                                            "No stores match your filters",
-                                            Toast.LENGTH_SHORT
-                                    ).show();
+                                    Toast.makeText(CustomerMain.this, "No stores match your filters", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                        }).start(); // Don't forget to start the thread!
+                        }).start();
                         dialog.dismiss();
                     }
                 });
                 dialog.show();
             }
-
             private void updateStars(List<ImageView> stars, int count) {
                 for (int i = 0; i < stars.size(); i++) {
                     if (i < count) {
@@ -196,8 +186,28 @@ public class CustomerMain extends AppCompatActivity {
         });
 
 
+        Button clearFiltersBtn = findViewById(R.id.button_clear);
+
+        clearFiltersBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(() -> {
+                    List<Store> stores = customer.showNearbyStores();
+                    runOnUiThread(() -> {
+                        if (stores != null && !stores.isEmpty()) {
+                            nearbyStores.clear();
+                            nearbyStores.addAll(stores);
+                            storeAdapter.notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(CustomerMain.this, "No nearby stores", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }).start();
+            }
+        });
+
+
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            // Get the clicked store from your ArrayList
             Store clickedStore = nearbyStores.get(position);
 
             Toast.makeText(CustomerMain.this,
