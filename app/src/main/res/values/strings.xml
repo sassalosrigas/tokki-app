@@ -21,5 +21,19 @@
     <string name="confirm_order">confirm order</string>
     <string name="addstoretext">time to add your store...</string>
     <string name="addstoresubtext">paste the json file path below.</string>
+    <string name="addnewproduct">add a new product</string>
+    <string name="seeofflineproducts">view offline products</string>
+    <string name="filter">filter</string>
+    <string name="category">category</string>
+    <string name="eg_category">e.g. Pizza, Sushi</string>
+    <string name="rating">rating</string>
+    <string name="to">to</string>
+    <string name="price_range">price range</string>
+    <string name="one_dollar">$</string>
+    <string name="two_dollars">$$</string>
+    <string name="three_dollars">$$$</string>
+    <string name="cancel">cancel</string>
+    <string name="apply_filters">apply filters</string>
+    <string name="nearby_stores">stores near you</string>
 
 </resources>

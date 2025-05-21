@@ -1,4 +1,6 @@
 package com.example.tokki.java;
+import static java.lang.System.in;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -422,5 +424,22 @@ public class Manager{
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static List<Store> showAllStores() throws IOException, ClassNotFoundException {
+        List<Store> stores = null;
+        Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream inp = new ObjectInputStream(socket.getInputStream());
+        out.writeObject(new WorkerFunctions("SHOW_ALL_STORES"));
+        out.flush();
+        Object response = inp.readObject();
+        if(response instanceof ArrayList){
+            stores = (List<Store>) response;
+        }
+        in.close();
+        out.close();
+        socket.close();
+        return stores;
     }
 }
