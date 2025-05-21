@@ -211,6 +211,58 @@ public class Customer implements Serializable {
         }
     }
 
+    public boolean reserveProduct(Product product, Store store, int quantity) throws IOException, ClassNotFoundException {
+        Socket socket = new Socket("127.0.0.1", 8080);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+        out.writeObject(new WorkerFunctions("RESERVE_PRODUCT", product,store,this, quantity));  //Desmeuei ena proion prosorina
+        out.flush();
+        Object response = in.readObject();
+        if(response instanceof ProductOrder) {
+            System.out.println("Product reserved successfully");
+            out.close();
+            in.close();
+            socket.close();
+            return true;
+        }else{
+            System.out.println(response);
+        }
+        out.close();
+        in.close();
+        socket.close();
+        return false;
+    }
+
+    public boolean rollbackPurchase(Store store) throws IOException, ClassNotFoundException {
+        Socket socket = new Socket("127.0.0.1", 8080);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+        out.writeObject(new WorkerFunctions("ROLLBACK_PURCHASE", store, this));
+        out.flush();
+        Object response = (String) in.readObject();
+        out.close();
+        in.close();
+        socket.close();
+        System.out.println("Order cancelled");
+        return true;
+    }
+
+    public boolean completePurchase(Store store) throws IOException, ClassNotFoundException {
+        Socket socket = new Socket("127.0.0.1", 8080);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+        out.writeObject(new WorkerFunctions("COMPLETE_PURCHASE", store, this));
+        out.flush();
+        Object response = (String) in.readObject();
+        if(response.equals("Purchase successful")){
+            System.out.println("Purchase completed");
+            return true;
+        }else{
+            System.out.println("Purchase failed");
+            return false;
+        }
+    }
+
     public void filterStores(Scanner in){
         /*
             Epilogh apo diathesima filtra kai provolh twn katasthmatwn pou antistoixoun se auta

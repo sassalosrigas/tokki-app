@@ -1,7 +1,8 @@
 package com.example.tokki;
-
+import com.example.tokki.java.Order;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -13,7 +14,11 @@ import androidx.cardview.widget.CardView;
 import com.example.tokki.java.Product;
 import com.example.tokki.java.Store;
 
-public class CustomerStoreView extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class CustomerStoreView extends AppCompatActivity implements ProductAdapter.OnQuantityChangeListener{
 
     private ImageView storeLogo;
     private TextView storeTitle;
@@ -24,6 +29,8 @@ public class CustomerStoreView extends AppCompatActivity {
 
     private ListView productsListView;
     private ProductAdapter productAdapter;
+
+    private List<Integer> quantities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,7 @@ public class CustomerStoreView extends AppCompatActivity {
         Store store = (Store) getIntent().getSerializableExtra("STORE");
 
         if (store != null) {
+            quantities = new ArrayList<>(Collections.nCopies(store.getProducts().size(), 0));
             storeTitle.setText(store.getStoreName());
             storeCategory.setText(store.getFoodCategory());
             storeRating.setText(String.format("★ %.1f", store.getStars()));
@@ -54,22 +62,56 @@ public class CustomerStoreView extends AppCompatActivity {
                 storeLogo.setImageResource(R.drawable.img);
             }
 
-            storeButton.setOnClickListener(v -> {
-                Intent intent = new Intent(CustomerStoreView.this, CustomerOrderConfirmation.class);
-                intent.putExtra("STORE_DATA", store);
-                startActivity(intent);
+            productsListView = findViewById(R.id.products_list_view);
+            productAdapter = new ProductAdapter(this, store.getProducts(), this);
+            productsListView.setAdapter(productAdapter);
+
+        /*
+        productsListView.setOnItemClickListener((parent, view, position, id) -> {
+            Product selectedProduct = (Product) parent.getItemAtPosition(position);
+        });
+
+         */
+            findViewById(R.id.store_button).setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    List<Product> orderedProducts = new ArrayList<>();
+                    List<Integer> orderedQuantities = new ArrayList<>();
+
+                    for (int i = 0; i < quantities.size(); i++) {
+                        if (quantities.get(i) > 0) {
+                            orderedProducts.add((Product) productAdapter.getItem(i));
+                            orderedQuantities.add(quantities.get(i));
+                        }
+                    }
+
+                    if (orderedProducts.isEmpty()) {
+                        Toast.makeText(CustomerStoreView.this,
+                                "Please select at least one product",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    Order order = new Order(store, orderedProducts, orderedQuantities);
+
+                    Intent intent = new Intent(CustomerStoreView.this, CustomerOrderConfirmation.class);
+                    intent.putExtra("ORDER_DATA", order);
+                    startActivity(intent);
+                }
             });
         } else {
             Toast.makeText(this, "Store data not available", Toast.LENGTH_SHORT).show();
             finish();
         }
 
-        productsListView = findViewById(R.id.products_list_view);
-        productAdapter = new ProductAdapter(this, store.getProducts());
-        productsListView.setAdapter(productAdapter);
+    }
 
-        productsListView.setOnItemClickListener((parent, view, position, id) -> {
-            Product selectedProduct = (Product) parent.getItemAtPosition(position);
-        });
+    @Override
+    public void onQuantityChanged(int position, int newQuantity) {
+        Product product = (Product) productAdapter.getItem(position);
+        quantities.set(position, newQuantity);
+        Toast.makeText(this,
+                "Quantity changed for " + product.getProductName() + ": " + newQuantity,
+                Toast.LENGTH_SHORT).show();
+
     }
 }
