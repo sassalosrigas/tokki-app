@@ -1,5 +1,6 @@
 package com.example.tokki;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -20,13 +21,14 @@ public class OfflineProductView extends AppCompatActivity {
     private TextView storeCategory;
     private TextView storeRating;
     private TextView storePrice;
-    private CardView storeButton;
 
     private ListView productsListView;
     private ManagerProductAdapter productAdapter;
 
+    //@SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Toast.makeText(this, "Opened OfflineProductView", Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_product_view);
 
@@ -35,7 +37,6 @@ public class OfflineProductView extends AppCompatActivity {
         storeCategory = findViewById(R.id.store_category_main);
         storeRating = findViewById(R.id.store_rating);
         storePrice = findViewById(R.id.store_price);
-        storeButton = findViewById(R.id.store_button);
 
         Store store = (Store) getIntent().getSerializableExtra("STORE");
 
@@ -54,22 +55,19 @@ public class OfflineProductView extends AppCompatActivity {
                 storeLogo.setImageResource(R.drawable.img);
             }
 
-            storeButton.setOnClickListener(v -> {
-                Intent intent = new Intent(OfflineProductView.this, CustomerOrderConfirmation.class);
-                intent.putExtra("STORE_DATA", store);
-                startActivity(intent);
+
+            productsListView = findViewById(R.id.products_list_view);
+            productAdapter = new ManagerProductAdapter(this, store.getProducts());
+            productsListView.setAdapter(productAdapter);
+
+            productsListView.setOnItemClickListener((parent, view, position, id) -> {
+                Product selectedProduct = (Product) parent.getItemAtPosition(position);
             });
         } else {
             Toast.makeText(this, "Store data not available", Toast.LENGTH_SHORT).show();
             finish();
         }
 
-        productsListView = findViewById(R.id.products_list_view);
-        productAdapter = new ManagerProductAdapter(this, store.getProducts());
-        productsListView.setAdapter(productAdapter);
 
-        productsListView.setOnItemClickListener((parent, view, position, id) -> {
-            Product selectedProduct = (Product) parent.getItemAtPosition(position);
-        });
     }
 }
