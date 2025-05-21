@@ -83,7 +83,7 @@ public class CustomerOrderConfirmation extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if (order == null) {
-                    new AlertDialog.Builder(CustomerOrderConfirmation.this)
+                    new AlertDialog.Builder(CustomerOrderConfirmation.this, R.style.AlertDialogCustom)
                             .setTitle("Error")
                             .setMessage("Order data not available.")
                             .setPositiveButton("OK", null)
@@ -128,7 +128,7 @@ public class CustomerOrderConfirmation extends AppCompatActivity{
                     boolean finalPurchaseCompleted = purchaseCompleted;
                     runOnUiThread(() -> {
                         if (finalPurchaseCompleted) {
-                            new AlertDialog.Builder(CustomerOrderConfirmation.this)
+                            new AlertDialog.Builder(CustomerOrderConfirmation.this, R.style.AlertDialogCustom)
                                     .setTitle("Success")
                                     .setMessage("Order completed successfully!")
                                     .setPositiveButton("OK", (dialog, which) -> {
@@ -139,7 +139,7 @@ public class CustomerOrderConfirmation extends AppCompatActivity{
                                     .setCancelable(false)
                                     .show();
                         } else {
-                            new AlertDialog.Builder(CustomerOrderConfirmation.this)
+                            new AlertDialog.Builder(CustomerOrderConfirmation.this, R.style.AlertDialogCustom)
                                     .setTitle("Order Failed")
                                     .setMessage("Some products may be out of stock. Please try again.")
                                     .setPositiveButton("OK", (dialog, which) -> {
