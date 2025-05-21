@@ -1,5 +1,7 @@
 package com.example.tokki.java;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -263,10 +265,13 @@ public class Customer implements Serializable {
         }
     }
 
+
     public void filterStores(Scanner in){
-        /*
+            /*
             Epilogh apo diathesima filtra kai provolh twn katasthmatwn pou antistoixoun se auta
-         */
+
+             */
+
         try {
             System.out.println("Choose Food Category (leave empty for any):");
             String category = in.nextLine();
@@ -299,6 +304,38 @@ public class Customer implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    public List<Store> filterStores(String category, double minRate, double maxRate, String priceCat){
+        /*
+        Epilogh apo diathesima filtra kai provolh twn katasthmatwn pou antistoixoun se auta
+         */
+        List<Store> results = null;
+        try {
+            Socket socket = new Socket("127.0.0.1", 8080);
+            Log.d("Category", "Category in customer: " + category);
+            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+            out.writeObject(new WorkerFunctions("FILTER_STORES",
+                    category.isEmpty() ? null : category,
+                    minRate, maxRate,
+                    priceCat.isEmpty() ? null : priceCat));
+            out.flush();
+
+            results = (List<Store>) in.readObject();
+            System.out.println("Found " + results.size() + " results");
+            //results.forEach(store ->
+              //      System.out.println(store.getStoreName() + "(" + store.getFoodCategory() + ") - Rating: " + store.getStars()
+                //            + " - Price: " + store.getPriceCategory()));
+            out.close();
+            in.close();
+            socket.close();
+            return results;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return results;
     }
 
     public void rateStore(Scanner in){

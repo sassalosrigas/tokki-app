@@ -1,5 +1,7 @@
 package com.example.tokki.java;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -325,7 +327,7 @@ public class ActionsForMaster extends Thread {
         double upperStars = request.getDouble2();
         String priceCategory = request.getName2();
         String requestId = generateRequestId();
-
+        Log.d("ActionForMaster", "Category in master: " + foodCategory);
         master.storeClientConnection(requestId, out);
 
         for (Worker worker : master.getWorkers()) {

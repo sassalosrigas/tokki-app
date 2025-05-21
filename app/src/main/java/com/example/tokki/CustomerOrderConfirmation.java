@@ -41,7 +41,6 @@ public class CustomerOrderConfirmation extends AppCompatActivity {
         customer = new Customer("rigas", "123", 37.986633, 23.734900);
 
         if (order != null) {
-            // Display order summary
             for (int i = 0; i < order.getProducts().size(); i++) {
                 Log.d("Order", order.getProducts().get(i).getProductName() +
                         " x" + order.getQuantities().get(i));
