@@ -3,16 +3,22 @@ package com.example.tokki;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.example.tokki.java.Manager;
 import com.example.tokki.java.Product;
 import com.example.tokki.java.Store;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class OfflineProductView extends AppCompatActivity {
 
@@ -62,6 +68,27 @@ public class OfflineProductView extends AppCompatActivity {
 
             productsListView.setOnItemClickListener((parent, view, position, id) -> {
                 Product selectedProduct = (Product) parent.getItemAtPosition(position);
+                Toast.makeText(this, "Clickara", Toast.LENGTH_SHORT).show();
+                LayoutInflater inflater = getLayoutInflater();
+                View popupView = inflater.inflate(R.layout.popup_enteramount, null);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(OfflineProductView.this);
+                builder.setView(popupView);
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+                MaterialButton addBtn = popupView.findViewById(R.id.addBtn);
+                MaterialButton cancelBtn = popupView.findViewById(R.id.cancelBtn);
+                TextInputEditText input = popupView.findViewById(R.id.storeNameEditText);
+
+                addBtn.setOnClickListener(bv -> {
+                    new Thread(() -> {
+                    }).start();
+                    Toast.makeText(OfflineProductView.this, "new amount set", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                });
+                cancelBtn.setOnClickListener(bv -> dialog.dismiss());
             });
         } else {
             Toast.makeText(this, "Store data not available", Toast.LENGTH_SHORT).show();
