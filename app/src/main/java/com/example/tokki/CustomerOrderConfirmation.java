@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -14,16 +16,14 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.tokki.java.Customer;
 import com.example.tokki.java.Order;
-import com.example.tokki.java.Product;
 import com.example.tokki.java.Store;
 
-import java.io.IOException;
-import java.util.List;
-
-public class CustomerOrderConfirmation extends AppCompatActivity {
+public class CustomerOrderConfirmation extends AppCompatActivity{
 
     private Order order;
     private Customer customer;
+    private OrderConfirmationProductAdapter reservedProductAdapter;
+    private ListView reservedProductsListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +36,10 @@ public class CustomerOrderConfirmation extends AppCompatActivity {
             return insets;
         });
 
-        // Initialize order and customer
         order = (Order) getIntent().getSerializableExtra("ORDER_DATA");
         customer = new Customer("rigas", "123", 37.986633, 23.734900);
 
         if (order != null) {
-            // Display order summary
             for (int i = 0; i < order.getProducts().size(); i++) {
                 Log.d("Order", order.getProducts().get(i).getProductName() +
                         " x" + order.getQuantities().get(i));
@@ -49,7 +47,34 @@ public class CustomerOrderConfirmation extends AppCompatActivity {
             Log.d("Order", "Total: €" + order.getTotal());
         }
 
-        findViewById(R.id.store_button).setOnClickListener(new View.OnClickListener() {
+        TextView totalText = findViewById(R.id.total);
+
+        double totalAmount = order.getTotal(); // Ensure 'order' is initialized before this
+        String formatted = String.format("total: €%.2f", totalAmount);
+        totalText.setText(formatted);
+
+        reservedProductsListView = findViewById(R.id.order_list_view);
+        reservedProductAdapter = new OrderConfirmationProductAdapter(this, order.getProducts(), order.getQuantities());
+        reservedProductsListView.setAdapter(reservedProductAdapter);
+
+        findViewById(R.id.clear_cart_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (order != null) {
+                    order.getProducts().clear();
+                    order.getQuantities().clear();
+                    reservedProductAdapter.notifyDataSetChanged();
+
+                    TextView totalText = findViewById(R.id.total);
+                    totalText.setText("total: €0.00");
+
+                    Toast.makeText(CustomerOrderConfirmation.this, "Cart cleared.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        findViewById(R.id.confirm_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (order == null) {
@@ -95,7 +120,6 @@ public class CustomerOrderConfirmation extends AppCompatActivity {
                         }
                     }
 
-                    // 3. Handle result on UI thread
                     boolean finalPurchaseCompleted = purchaseCompleted;
                     runOnUiThread(() -> {
                         if (finalPurchaseCompleted) {
