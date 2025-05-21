@@ -35,5 +35,6 @@
     <string name="cancel">cancel</string>
     <string name="apply_filters">apply filters</string>
     <string name="nearby_stores">stores near you</string>
+    <string name="clear_cart">clear cart</string>
 
 </resources>

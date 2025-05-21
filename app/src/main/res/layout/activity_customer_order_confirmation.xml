@@ -9,10 +9,10 @@
     tools:context=".CustomerOrderConfirmation">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/store_button"
-        android:layout_width="395dp"
+        android:id="@+id/clear_cart_button"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="825dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="10dp"
@@ -21,8 +21,50 @@
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/confirm_button"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:text="@string/clear_cart"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:foreground="@android:drawable/ic_menu_close_clear_cancel"
+                app:tint="@color/gray" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/confirm_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="825dp"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/clear_cart_button"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@color/black"
         app:strokeWidth="1dp">
@@ -66,31 +108,26 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/total_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="189dp"
-        android:layout_marginTop="669dp"
-        android:layout_marginBottom="51dp"
-        android:text="total:"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/store_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/order_overview" />
-
-    <TextView
         android:id="@+id/total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
         android:layout_marginTop="669dp"
         android:layout_marginEnd="62dp"
         android:layout_marginBottom="51dp"
-        android:text="price"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/store_button"
+        app:layout_constraintBottom_toTopOf="@+id/confirm_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/total_text"
+        app:layout_constraintTop_toBottomOf="@+id/order_overview" />
+
+    <ListView
+        android:id="@+id/order_list_view"
+        android:layout_width="406dp"
+        android:layout_height="612dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/order_overview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
