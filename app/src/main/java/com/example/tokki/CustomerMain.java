@@ -1,6 +1,7 @@
 package com.example.tokki;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -129,7 +130,7 @@ public class CustomerMain extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-
+                Customer customer = new Customer("rigas", "123", 37.986633, 23.734900);
                 applyButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -139,22 +140,46 @@ public class CustomerMain extends AppCompatActivity {
                         int priceLevel;
 
                         int checkedId = priceGroup.getCheckedRadioButtonId();
+                        String prange;
                         if (checkedId == R.id.price_1) {
                             priceLevel = 1;
+                            prange = "$";
                         } else if (checkedId == R.id.price_2) {
                             priceLevel = 2;
+                            prange = "$$";
                         } else if (checkedId == R.id.price_3) {
                             priceLevel = 3;
+                            prange = "$$$";
                         } else {
                             priceLevel = 0;
+                            prange = "";
                         }
+                        new Thread(() -> {
+                            Log.d("Category", category);
+                            List<Store> stores = customer.filterStores(
+                                    category,
+                                    minStars,
+                                    maxStars,
+                                    prange
+                            );
 
-                        //applyStoreFilters(category, minStars, maxStars, priceLevel);
-
+                            runOnUiThread(() -> {
+                                if (stores != null && !stores.isEmpty()) {
+                                    nearbyStores.clear();
+                                    nearbyStores.addAll(stores);
+                                    storeAdapter.notifyDataSetChanged();
+                                } else {
+                                    Toast.makeText(
+                                            CustomerMain.this,
+                                            "No stores match your filters",
+                                            Toast.LENGTH_SHORT
+                                    ).show();
+                                }
+                            });
+                        }).start(); // Don't forget to start the thread!
                         dialog.dismiss();
                     }
                 });
-
                 dialog.show();
             }
 

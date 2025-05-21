@@ -14,7 +14,6 @@ public class Order implements Serializable {
         this.quantities = quantities;
     }
 
-    // Getters
     public Store getStore() { return store; }
     public List<Product> getProducts() { return products; }
     public List<Integer> getQuantities() { return quantities; }

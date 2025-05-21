@@ -1,5 +1,7 @@
 package com.example.tokki.java;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -323,6 +325,7 @@ public class Worker extends Thread{
 
     public boolean matchesFilter(Store store, String category, double minRate, double maxRate, String priceCat) {
         boolean result = true;
+        Log.d("filter final", "category in filter " + category);
         if (category != null && !store.getFoodCategory().equalsIgnoreCase(category)) {
             return false;
         }

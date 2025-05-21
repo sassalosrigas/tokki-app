@@ -119,14 +119,16 @@ public class Reducer extends Thread {
                 if(operation.equals("FILTER_STORES")) {
                     List<Store> mappedResults = (List<Store>) in.readObject();
                     reducer.addPartialResult(requestId, mappedResults);
+                    //out.writeObject(mappedResults);
                 }else{
                     Map<String, Integer> mappedResults = (Map<String, Integer>) in.readObject();
                     reducer.addPartialResult(requestId, mappedResults);
+                    //out.writeObject(mappedResults);
                 }
 
 
-                out.writeObject(Collections.emptyMap());
-                out.flush();
+                //out.writeObject(Collections.emptyMap());
+                //out.flush();
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             } finally {
