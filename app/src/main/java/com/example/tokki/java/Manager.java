@@ -164,6 +164,23 @@ public class Manager{
         }
     }
 
+    public static List<Store> getAllStores() throws IOException, ClassNotFoundException {
+        Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+
+        out.writeObject(new WorkerFunctions("SHOW_ALL_STORES"));
+        out.flush();
+        Object response = in.readObject();
+        ArrayList<Store> stores = null;
+        if(response instanceof ArrayList){
+            stores = (ArrayList<Store>) response;
+        }
+        out.close();
+        in.close();
+        socket.close();
+        return stores;
+    }
 
     public static void addProductToStore(Scanner input) {
         try {
