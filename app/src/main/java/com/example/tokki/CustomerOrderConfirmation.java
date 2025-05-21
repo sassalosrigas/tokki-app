@@ -1,5 +1,7 @@
 package com.example.tokki;
 
+import static android.app.ProgressDialog.show;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +19,9 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.tokki.java.Customer;
 import com.example.tokki.java.Order;
 import com.example.tokki.java.Store;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AlertDialog;
+
 
 public class CustomerOrderConfirmation extends AppCompatActivity{
 
@@ -68,7 +73,7 @@ public class CustomerOrderConfirmation extends AppCompatActivity{
                     TextView totalText = findViewById(R.id.total);
                     totalText.setText("total: €0.00");
 
-                    Toast.makeText(CustomerOrderConfirmation.this, "Cart cleared.", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(findViewById(R.id.main), "Cart cleared.", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -78,16 +83,16 @@ public class CustomerOrderConfirmation extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if (order == null) {
-                    Toast.makeText(CustomerOrderConfirmation.this,
-                            "Order data not available",
-                            Toast.LENGTH_SHORT).show();
-                    return;
+                    new AlertDialog.Builder(CustomerOrderConfirmation.this)
+                            .setTitle("Error")
+                            .setMessage("Order data not available.")
+                            .setPositiveButton("OK", null)
+                            .show();
                 }
                 v.setEnabled(false);
 
-                Toast.makeText(CustomerOrderConfirmation.this,
-                        "Processing your order...",
-                        Toast.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.main), "Submitting your order...", Snackbar.LENGTH_SHORT).show();
+
 
                 new Thread(() -> {
                     boolean allReservationsSuccessful = true;
@@ -123,32 +128,38 @@ public class CustomerOrderConfirmation extends AppCompatActivity{
                     boolean finalPurchaseCompleted = purchaseCompleted;
                     runOnUiThread(() -> {
                         if (finalPurchaseCompleted) {
-                            Toast.makeText(CustomerOrderConfirmation.this,
-                                    "Order completed successfully!",
-                                    Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(CustomerOrderConfirmation.this,
-                                    CustomerMain.class);
-                            startActivity(intent);
-                            finish();
+                            new AlertDialog.Builder(CustomerOrderConfirmation.this)
+                                    .setTitle("Success")
+                                    .setMessage("Order completed successfully!")
+                                    .setPositiveButton("OK", (dialog, which) -> {
+                                        Intent intent = new Intent(CustomerOrderConfirmation.this, CustomerMain.class);
+                                        startActivity(intent);
+                                        finish();
+                                    })
+                                    .setCancelable(false)
+                                    .show();
                         } else {
-                            // Rollback reservations if failed
+                            new AlertDialog.Builder(CustomerOrderConfirmation.this)
+                                    .setTitle("Order Failed")
+                                    .setMessage("Some products may be out of stock. Please try again.")
+                                    .setPositiveButton("OK", (dialog, which) -> {
+                                        Intent intent = new Intent(CustomerOrderConfirmation.this,
+                                                CustomerStoreView.class);
+                                        startActivity(intent);
+                                        finish();
+                                    })
+                                    .show();
+
                             new Thread(() -> {
                                 try {
                                     customer.rollbackPurchase(order.getStore()
                                     );
-                                    Intent intent = new Intent(CustomerOrderConfirmation.this,
-                                            CustomerMain.class);
-                                    startActivity(intent);
-                                    finish();
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
                             }).start();
 
-                            Toast.makeText(CustomerOrderConfirmation.this,
-                                    "Order failed. Please try again.",
-                                    Toast.LENGTH_LONG).show();
-                            v.setEnabled(true);
+
                         }
                     });
                 }).start();

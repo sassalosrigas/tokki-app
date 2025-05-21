@@ -9,7 +9,7 @@
   "products" : [ {
     "productName" : "Margherita",
     "productType" : "Pizza",
-    "availableAmount" : 2000,
+    "availableAmount" : 20000,
     "price" : 9.2
   }, {
     "productName" : "Special",
