@@ -80,6 +80,7 @@ public class ManagerMain extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(ManagerMain.this, "Entering Add Product", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ManagerMain.this, ManagerStoreView.class);
+                intent.putExtra("FUNCTION", "ADD_PRODUCT");
                 startActivity(intent);
             }
         });
@@ -88,7 +89,8 @@ public class ManagerMain extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ManagerMain.this, "Entering Remove Product", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ManagerMain.this, RemoveProductPage.class);
+                Intent intent = new Intent(ManagerMain.this, ManagerStoreView.class);
+                intent.putExtra("FUNCTION", "REMOVE_PRODUCT");
                 startActivity(intent);
             }
         });
