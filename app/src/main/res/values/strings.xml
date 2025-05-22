@@ -1,14 +1,13 @@
 <resources>
     <string name="app_name">tokki</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="getstarted">get started</string>
+    <string name="order_now">order now</string>
     <string name="manager">Are you a manager?</string>
-    <string name="managerlogin">log in</string>
+    <string name="managerlogin">admin</string>
     <string name="addstore">add store</string>
     <string name="addproduct">add product to store</string>
     <string name="removeproduct">remove product from store</string>
