@@ -108,7 +108,9 @@ public class ActionForWorkers extends Thread {
                 case "GET_OFFLINE_PRODUCTS":
                     handleGetOfflineProducts(request);
                     break;
-
+                case "GET_ONLINE_PRODUCTS":
+                    handleGetOnlineProducts(request);
+                    break;
                 case "MODIFY_STOCK":
                     handleModifyStock(request);
                     break;
@@ -199,6 +201,11 @@ public class ActionForWorkers extends Thread {
         out.writeObject(offlineProducts);
     }
 
+    private void handleGetOnlineProducts(WorkerFunctions request) throws IOException{
+        Store storeForProducts = (Store) request.getObject();
+        List<Product> offlineProducts = worker.getOnlineProducts(storeForProducts);
+        out.writeObject(offlineProducts);
+    }
     private void handleModifyStock(WorkerFunctions request) throws IOException {
         Store stockStore = (Store) request.getObject();
         Product stockProduct = (Product) request.getObject2();
@@ -266,17 +273,7 @@ public class ActionForWorkers extends Thread {
         out.writeObject(stores);
     }
 
-    /*
-    private void handleFilterStores(WorkerFunctions request) throws IOException {
-        String foodCategory = request.getName();
-        double lowerStars = request.getDouble1();
-        double upperStars = request.getDouble2();
-        String priceCategory = request.getName2();
-        List<Store> results = worker.mapFilterStores(foodCategory, lowerStars, upperStars, priceCategory, workers);
-        out.writeObject(results);
-    }
 
-     */
     private void handleFilterStores(WorkerFunctions request) throws IOException {
         String foodCategory = request.getName();
         double lowerStars = request.getDouble1();

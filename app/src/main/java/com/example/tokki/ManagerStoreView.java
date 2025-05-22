@@ -62,7 +62,6 @@ public class ManagerStoreView extends AppCompatActivity{
             Store clickedStore = allStores.get(position);
 
             if(function.equals("ADD_PRODUCT")) {
-                // Create dialog
                 new androidx.appcompat.app.AlertDialog.Builder(ManagerStoreView.this)
                         .setTitle("Choose Action")
                         .setMessage("What would you like to do with " + clickedStore.getStoreName() + "?")

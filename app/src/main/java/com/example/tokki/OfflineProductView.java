@@ -3,6 +3,7 @@ package com.example.tokki;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -68,20 +69,24 @@ public class OfflineProductView extends AppCompatActivity {
 
             new Thread(() -> {
                 try {
-                    products = Manager.getOfflineProducts(store);
+                    products = Manager.getOnlineProducts(store);
+                    Log.d("RETURNED", "Size" + products.size());
                     runOnUiThread(() -> {
-                        if (products!=null) {
+                        if (products != null && !products.isEmpty()) {
                             Toast.makeText(OfflineProductView.this, "Listed all offline products", Toast.LENGTH_SHORT).show();
+                            // Initialize adapter here, after data is loaded
+                            productAdapter = new ManagerProductAdapter(OfflineProductView.this, products);
+                            productsListView.setAdapter(productAdapter);
+                            productAdapter.notifyDataSetChanged(); // Notify adapter of data change
                         } else {
                             Toast.makeText(OfflineProductView.this, "No offline products exist", Toast.LENGTH_SHORT).show();
                         }
                     });
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
+                } catch (IOException | ClassNotFoundException e) {
+                    runOnUiThread(() ->
+                            Toast.makeText(OfflineProductView.this, "Error loading products", Toast.LENGTH_SHORT).show());
+                    e.printStackTrace();
                 }
-
             }).start();
             productsListView = findViewById(R.id.products_list_view);
             productAdapter = new ManagerProductAdapter(this, products);

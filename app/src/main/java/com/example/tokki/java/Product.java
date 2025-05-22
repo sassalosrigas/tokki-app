@@ -26,6 +26,7 @@ public class Product implements Serializable {
         this.showOnline = true;
     }
 
+
     public Product() {
     }
 
