@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Entering Customer", Toast.LENGTH_SHORT).show();
                 Customer customer = new Customer("rigas", "123", 37.986633, 23.734900);
                 Intent intent = new Intent(MainActivity.this, CustomerMain.class);
+                intent.putExtra("CUSTOMER", customer);
                 startActivity(intent);
             }
         });

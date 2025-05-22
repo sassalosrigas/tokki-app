@@ -1,4 +1,5 @@
 package com.example.tokki;
+import com.example.tokki.java.Manager;
 import com.example.tokki.java.Order;
 
 import android.annotation.SuppressLint;
@@ -18,6 +19,7 @@ import androidx.cardview.widget.CardView;
 import com.example.tokki.java.Product;
 import com.example.tokki.java.Store;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -42,9 +44,9 @@ public class AddProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
         EditText nameInput = findViewById(R.id.inputName);
-        EditText descriptionInput = findViewById(R.id.inputDescription);
-        EditText priceInput = findViewById(R.id.inputPrice);
         EditText categoryInput = findViewById(R.id.inputCategory);
+        EditText priceInput = findViewById(R.id.inputPrice);
+        EditText stockInput = findViewById(R.id.inputStock);
         Button submitButton = findViewById(R.id.submitButton);
 
         storeLogo = findViewById(R.id.store_logo2);
@@ -77,15 +79,30 @@ public class AddProductActivity extends AppCompatActivity {
 
         submitButton.setOnClickListener(v -> {
             String name = nameInput.getText().toString().trim();
-            String desc = descriptionInput.getText().toString().trim();
-            String price = priceInput.getText().toString().trim();
             String category = categoryInput.getText().toString().trim();
+            String stock = stockInput.getText().toString().trim();
+            String price = priceInput.getText().toString().trim();
 
-            if (name.isEmpty() || desc.isEmpty() || price.isEmpty() || category.isEmpty()) {
+            if (name.isEmpty() || category.isEmpty() || price.isEmpty() || stock.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
                 return;
             }else{
-                //Product product = new Product(name, desc, Integer.parseInt(price.toString()),category));
+                Product product = new Product(name, category,Integer.parseInt(stock.toString()) ,Integer.parseInt(price.toString()));
+                new Thread(()->
+                {
+                    try {
+                        boolean added = Manager.addProductToStore(store,product);
+                        runOnUiThread(()-> {
+                            if (added) {
+                                Toast.makeText(this, "Product added", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).start();
             }
             Toast.makeText(this, "Submitted: " + name, Toast.LENGTH_SHORT).show();
         });

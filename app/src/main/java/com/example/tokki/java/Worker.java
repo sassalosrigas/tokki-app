@@ -308,6 +308,16 @@ public class Worker extends Thread{
         }
     }
 
+    public List<Product> getOnlineProducts(Store store) {
+        Store localStore = getStore(store.getStoreName());
+        if (localStore == null) return Collections.emptyList();
+
+        synchronized (localStore){
+            return localStore.getProducts().stream()
+                    .filter(p -> p.isOnline())
+                    .collect(Collectors.toList());
+        }
+    }
     public Store getStore(String storeName) {
         for(Store store : storeList){
             if(store.getStoreName().equals(storeName)){

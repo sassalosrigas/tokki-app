@@ -42,5 +42,7 @@
     <string name="categoryy">Category</string>
     <string name="clear_cart">clear cart</string>
     <string name="clear_filters">clear filters</string>
+    <string name="inputStock">enter available stock here</string>
+    <string name="insert_stock_here">Insert stock here</string>
 
 </resources>

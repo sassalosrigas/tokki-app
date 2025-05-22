@@ -200,6 +200,24 @@ public class Manager{
         return products;
     }
 
+    public static List<Product> getOnlineProducts(Store store) throws IOException, ClassNotFoundException {
+        Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+
+        out.writeObject(new WorkerFunctions("GET_ONLINE_PRODUCTS", store));
+        out.flush();
+        Object response = in.readObject();
+        ArrayList<Product> products = null;
+        if(response instanceof ArrayList){
+            products = (ArrayList<Product>) response;
+            Log.d("ONLINE", "Got products size "+ products.size());
+        }
+        out.close();
+        in.close();
+        socket.close();
+        return products;
+    }
     public static void addProductToStore(Scanner input) {
         try {
             Socket socket = new Socket(InetAddress.getByName("0.0.0.0"), 8080);
@@ -313,13 +331,17 @@ public class Manager{
         }
     }
 
-    public static void addProductToStore(Store store, Product product) throws IOException, ClassNotFoundException {
+    public static boolean addProductToStore(Store store, Product product) throws IOException, ClassNotFoundException {
         Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
         out.writeObject(new WorkerFunctions("ADD_PRODUCT", store, product));
         out.flush();
         Object response = in.readObject();
+        if (response.equals("Product added")){
+            return true;
+        }
+        return false;
     }
     public static void salesPerProduct(Scanner input){
         /*
