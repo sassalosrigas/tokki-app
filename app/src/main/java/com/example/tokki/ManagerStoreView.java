@@ -80,8 +80,14 @@ public class ManagerStoreView extends AppCompatActivity{
             } else if (function.equals("REMOVE_PRODUCT")) {
                 Intent intent = new Intent(ManagerStoreView.this, OnlineProductView.class);
                 intent.putExtra("STORE", clickedStore);
+                intent.putExtra("SHOW_SWITCH", true);
                 startActivity(intent);
-            }
+            }else if (function.equals("MODIFY_STOCK")){
+                Intent intent = new Intent(ManagerStoreView.this, OnlineProductView.class);
+                intent.putExtra("STORE", clickedStore);
+                intent.putExtra("SHOW_SWITCH", false);
+                startActivity(intent);}
+
         });
 
     }

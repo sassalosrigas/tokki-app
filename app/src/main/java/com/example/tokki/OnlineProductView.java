@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +36,7 @@ public class OnlineProductView extends AppCompatActivity {
     private TextView storePrice;
 
     private ListView productsListView;
-    private ManagerProductRemovalAdapter productAdapter;
+    private BaseAdapter productAdapter;
 
     private List<Product> products;
     //@SuppressLint("MissingInflatedId")
@@ -42,12 +45,14 @@ public class OnlineProductView extends AppCompatActivity {
         Toast.makeText(this, "Opened OnlineProductView", Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_product_view);
+        boolean showSwitch = getIntent().getBooleanExtra("SHOW_SWITCH", false);
 
         storeLogo = findViewById(R.id.store_logo2);
         storeTitle = findViewById(R.id.store_tittle);
         storeCategory = findViewById(R.id.store_category_main);
         storeRating = findViewById(R.id.store_rating);
         storePrice = findViewById(R.id.store_price);
+
 
         Store store = (Store) getIntent().getSerializableExtra("STORE");
 
@@ -71,24 +76,53 @@ public class OnlineProductView extends AppCompatActivity {
                 products = store.getProducts();
                 runOnUiThread(() -> {
                     if (products!=null) {
-                        Toast.makeText(OnlineProductView.this, "Listed all offline products", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OnlineProductView.this, "Listed all online products", Toast.LENGTH_SHORT).show();
+                        if (showSwitch) {
+                            productAdapter = new ManagerProductRemovalAdapter(this, products);
+
+                        }else{
+                            productAdapter = new ManagerProductAdapter(this,products);
+                            productsListView.setOnItemClickListener((parent, view, position, id) -> {
+                                Product selectedProduct = (Product) parent.getItemAtPosition(position);
+                                Toast.makeText(this, "Clickara", Toast.LENGTH_SHORT).show();
+                                LayoutInflater inflater = getLayoutInflater();
+                                View popupView = inflater.inflate(R.layout.popup_enteramount, null);
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                                builder.setView(popupView);
+
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+
+                                MaterialButton addBtn = popupView.findViewById(R.id.addBtn);
+                                MaterialButton cancelBtn = popupView.findViewById(R.id.cancelBtn);
+                                TextInputEditText input = popupView.findViewById(R.id.storeNameEditText);
+
+                                addBtn.setOnClickListener(bv -> {
+                                    new Thread(() -> {
+                                        try {
+                                            Manager.modifyAvailability(store, selectedProduct, Integer.parseInt(input.getText().toString()));
+                                        } catch (IOException e) {
+                                            throw new RuntimeException(e);
+                                        } catch (ClassNotFoundException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                    }).start();
+                                    Toast.makeText(this, "new amount set", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                });
+                                cancelBtn.setOnClickListener(bv -> dialog.dismiss());
+                            });
+                        }
+                        productsListView.setAdapter( productAdapter);
                     } else {
-                        Toast.makeText(OnlineProductView.this, "No offline products exist", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OnlineProductView.this, "No online products exist", Toast.LENGTH_SHORT).show();
                     }
                 });
 
             }).start();
             productsListView = findViewById(R.id.products_list_view);
-            productAdapter = new ManagerProductRemovalAdapter(this, products);
-            productsListView.setAdapter(productAdapter);
-            productsListView.post(() -> {
-                for (int i = 0; i < productsListView.getChildCount(); i++) {
-                    View row = productsListView.getChildAt(i);
 
-                    Product product = products.get(i); // or use final int i = inside a loop
-
-                }
-            });
         } else {
             Toast.makeText(this, "Store data not available", Toast.LENGTH_SHORT).show();
             finish();

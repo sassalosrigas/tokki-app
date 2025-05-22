@@ -99,7 +99,8 @@ public class ManagerMain extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ManagerMain.this, "Entering Modify Stock", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ManagerMain.this, ModifyStockPage.class);
+                Intent intent = new Intent(ManagerMain.this, ManagerStoreView.class);
+                intent.putExtra("FUNCTION","MODIFY_STOCK");
                 startActivity(intent);
             }
         });
