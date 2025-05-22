@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,9 +69,17 @@ public class CustomerOrderConfirmation extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if (order != null) {
-                    order.getProducts().clear();
-                    order.getQuantities().clear();
-                    reservedProductAdapter.notifyDataSetChanged();
+                    View listView = findViewById(R.id.order_list_view);
+                    listView.animate()
+                            .alpha(0f)
+                            .setDuration(300)
+                            .withEndAction(() -> {
+                                order.getProducts().clear();
+                                order.getQuantities().clear();
+                                reservedProductAdapter.notifyDataSetChanged();
+                                listView.setAlpha(1f); // Reset for later use
+                            })
+                            .start();
 
                     TextView totalText = findViewById(R.id.total);
                     totalText.setText("total: €0.00");
@@ -79,7 +88,6 @@ public class CustomerOrderConfirmation extends AppCompatActivity{
                 }
             }
         });
-
 
         findViewById(R.id.confirm_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +138,8 @@ public class CustomerOrderConfirmation extends AppCompatActivity{
                     boolean finalPurchaseCompleted = purchaseCompleted;
                     runOnUiThread(() -> {
                         if (finalPurchaseCompleted) {
-                            LottieAnimationView anim = findViewById(R.id.success_anim);
+                            LottieAnimationView anim = findViewById(R.id.anim);
+                            anim.setAnimation("tick.json");
                             anim.setVisibility(View.VISIBLE);
                             anim.addAnimatorListener(new Animator.AnimatorListener() {
                                 @Override
@@ -153,17 +162,36 @@ public class CustomerOrderConfirmation extends AppCompatActivity{
 
                             anim.playAnimation();
                         } else {
-                            new AlertDialog.Builder(CustomerOrderConfirmation.this, R.style.AlertDialogCustom)
-                                    .setTitle("Order Failed")
-                                    .setMessage("Some products may be out of stock. Please try again.")
-                                    .setPositiveButton("OK", (dialog, which) -> {
-                                        Intent intent = new Intent(CustomerOrderConfirmation.this,
-                                                CustomerStoreView.class);
-                                        startActivity(intent);
-                                        finish();
-                                    })
-                                    .show();
+                            LottieAnimationView anim = findViewById(R.id.anim);
+                            anim.setAnimation("fail.json");
+                            anim.setVisibility(View.VISIBLE);
+                            anim.addAnimatorListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+                                }
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    new AlertDialog.Builder(CustomerOrderConfirmation.this, R.style.AlertDialogCustom)
+                                            .setTitle("Order Failed")
+                                            .setMessage("Some products may be out of stock. Please try again.")
+                                            .setPositiveButton("OK", (dialog, which) -> {
+                                                Intent intent = new Intent(CustomerOrderConfirmation.this,
+                                                        CustomerStoreView.class);
+                                                startActivity(intent);
+                                                finish();
+                                            })
+                                            .show();
+                                }
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+                                }
 
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+                                }
+                            });
+
+                            anim.playAnimation();
                             new Thread(() -> {
                                 try {
                                     customer.rollbackPurchase(order.getStore()
