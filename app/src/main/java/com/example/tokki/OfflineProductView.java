@@ -106,7 +106,7 @@ public class OfflineProductView extends AppCompatActivity {
                 addBtn.setOnClickListener(bv -> {
                     new Thread(() -> {
                         try {
-                            Manager.modifyAvailability(store, selectedProduct, Integer.parseInt(input.toString()));
+                            Manager.modifyAvailability(store, selectedProduct, Integer.parseInt(input.getText().toString()));
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         } catch (ClassNotFoundException e) {

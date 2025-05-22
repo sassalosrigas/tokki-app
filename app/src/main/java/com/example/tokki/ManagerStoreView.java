@@ -72,14 +72,14 @@ public class ManagerStoreView extends AppCompatActivity{
                             startActivity(intent);
                         })
                         .setNegativeButton("View Offline Products", (dialog, which) -> {
-                            Intent intent = new Intent(ManagerStoreView.this, OfflineProductView.class); // Replace with your actual class
+                            Intent intent = new Intent(ManagerStoreView.this, OfflineProductView.class);
                             intent.putExtra("STORE", clickedStore);
                             startActivity(intent);
                         })
                         .setNeutralButton("Cancel", null)
                         .show();
             } else if (function.equals("REMOVE_PRODUCT")) {
-                Intent intent = new Intent(ManagerStoreView.this, OfflineProductView.class); // Replace with your actual class
+                Intent intent = new Intent(ManagerStoreView.this, OnlineProductView.class);
                 intent.putExtra("STORE", clickedStore);
                 startActivity(intent);
             }
