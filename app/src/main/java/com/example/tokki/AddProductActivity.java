@@ -84,9 +84,9 @@ public class AddProductActivity extends AppCompatActivity {
             if (name.isEmpty() || desc.isEmpty() || price.isEmpty() || category.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
                 return;
+            }else{
+                //Product product = new Product(name, desc, Integer.parseInt(price.toString()),category));
             }
-
-            // You can handle the data here
             Toast.makeText(this, "Submitted: " + name, Toast.LENGTH_SHORT).show();
         });
     }

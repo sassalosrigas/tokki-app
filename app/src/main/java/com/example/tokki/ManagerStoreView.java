@@ -33,6 +33,7 @@ public class ManagerStoreView extends AppCompatActivity{
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        String function = (String) getIntent().getSerializableExtra("FUNCTION");
 
         listView = findViewById(R.id.storesListView);
         storeAdapter = new StoreAdapter(this, allStores);
@@ -60,22 +61,28 @@ public class ManagerStoreView extends AppCompatActivity{
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Store clickedStore = allStores.get(position);
 
-            // Create dialog
-            new androidx.appcompat.app.AlertDialog.Builder(ManagerStoreView.this)
-                    .setTitle("Choose Action")
-                    .setMessage("What would you like to do with " + clickedStore.getStoreName() + "?")
-                    .setPositiveButton("Add New Product", (dialog, which) -> {
-                        Intent intent = new Intent(ManagerStoreView.this, AddProductActivity.class);
-                        intent.putExtra("STORE", clickedStore);
-                        startActivity(intent);
-                    })
-                    .setNegativeButton("View Offline Products", (dialog, which) -> {
-                        Intent intent = new Intent(ManagerStoreView.this, OfflineProductView.class); // Replace with your actual class
-                        intent.putExtra("STORE", clickedStore);
-                        startActivity(intent);
-                    })
-                    .setNeutralButton("Cancel", null)
-                    .show();
+            if(function.equals("ADD_PRODUCT")) {
+                // Create dialog
+                new androidx.appcompat.app.AlertDialog.Builder(ManagerStoreView.this)
+                        .setTitle("Choose Action")
+                        .setMessage("What would you like to do with " + clickedStore.getStoreName() + "?")
+                        .setPositiveButton("Add New Product", (dialog, which) -> {
+                            Intent intent = new Intent(ManagerStoreView.this, AddProductActivity.class);
+                            intent.putExtra("STORE", clickedStore);
+                            startActivity(intent);
+                        })
+                        .setNegativeButton("View Offline Products", (dialog, which) -> {
+                            Intent intent = new Intent(ManagerStoreView.this, OfflineProductView.class); // Replace with your actual class
+                            intent.putExtra("STORE", clickedStore);
+                            startActivity(intent);
+                        })
+                        .setNeutralButton("Cancel", null)
+                        .show();
+            } else if (function.equals("REMOVE_PRODUCT")) {
+                Intent intent = new Intent(ManagerStoreView.this, OfflineProductView.class); // Replace with your actual class
+                intent.putExtra("STORE", clickedStore);
+                startActivity(intent);
+            }
         });
 
     }

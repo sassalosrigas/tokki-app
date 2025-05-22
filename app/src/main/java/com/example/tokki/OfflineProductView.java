@@ -20,6 +20,9 @@ import com.example.tokki.java.Store;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.IOException;
+import java.util.List;
+
 public class OfflineProductView extends AppCompatActivity {
 
     private ImageView storeLogo;
@@ -31,6 +34,7 @@ public class OfflineProductView extends AppCompatActivity {
     private ListView productsListView;
     private ManagerProductAdapter productAdapter;
 
+    private List<Product> products;
     //@SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +66,25 @@ public class OfflineProductView extends AppCompatActivity {
             }
 
 
+            new Thread(() -> {
+                try {
+                    products = Manager.getOfflineProducts(store);
+                    runOnUiThread(() -> {
+                        if (products!=null) {
+                            Toast.makeText(OfflineProductView.this, "Listed all offline products", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(OfflineProductView.this, "No offline products exist", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }).start();
             productsListView = findViewById(R.id.products_list_view);
-            productAdapter = new ManagerProductAdapter(this, store.getProducts());
+            productAdapter = new ManagerProductAdapter(this, products);
             productsListView.setAdapter(productAdapter);
 
             productsListView.setOnItemClickListener((parent, view, position, id) -> {
@@ -84,6 +105,13 @@ public class OfflineProductView extends AppCompatActivity {
 
                 addBtn.setOnClickListener(bv -> {
                     new Thread(() -> {
+                        try {
+                            Manager.modifyAvailability(store, selectedProduct, Integer.parseInt(input.toString()));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        } catch (ClassNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
                     }).start();
                     Toast.makeText(OfflineProductView.this, "new amount set", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
