@@ -46,5 +46,7 @@ dependencies {
     implementation libs.jackson.databind
     implementation libs.jackson.annotations
     implementation libs.material.v1110
+    implementation libs.lottie
+
 
 }

@@ -2,6 +2,7 @@ package com.example.tokki;
 
 import static android.app.ProgressDialog.show;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.tokki.java.Customer;
 import com.example.tokki.java.Order;
 import com.example.tokki.java.Store;
@@ -128,16 +130,28 @@ public class CustomerOrderConfirmation extends AppCompatActivity{
                     boolean finalPurchaseCompleted = purchaseCompleted;
                     runOnUiThread(() -> {
                         if (finalPurchaseCompleted) {
-                            new AlertDialog.Builder(CustomerOrderConfirmation.this, R.style.AlertDialogCustom)
-                                    .setTitle("Success")
-                                    .setMessage("Order completed successfully!")
-                                    .setPositiveButton("OK", (dialog, which) -> {
-                                        Intent intent = new Intent(CustomerOrderConfirmation.this, CustomerMain.class);
-                                        startActivity(intent);
-                                        finish();
-                                    })
-                                    .setCancelable(false)
-                                    .show();
+                            LottieAnimationView anim = findViewById(R.id.success_anim);
+                            anim.setVisibility(View.VISIBLE);
+                            anim.addAnimatorListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+                                }
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    Intent intent = new Intent(CustomerOrderConfirmation.this, CustomerMain.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+                                }
+                            });
+
+                            anim.playAnimation();
                         } else {
                             new AlertDialog.Builder(CustomerOrderConfirmation.this, R.style.AlertDialogCustom)
                                     .setTitle("Order Failed")

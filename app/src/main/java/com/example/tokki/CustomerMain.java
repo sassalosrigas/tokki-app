@@ -207,6 +207,7 @@ public class CustomerMain extends AppCompatActivity {
             Intent intent = new Intent(CustomerMain.this, CustomerStoreView.class);
             intent.putExtra("STORE", clickedStore);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         });
     }
 }

@@ -72,6 +72,15 @@ public class CustomerStoreView extends AppCompatActivity implements ProductAdapt
         });
 
          */
+            findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(CustomerStoreView.this, CustomerMain.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_up);
+                }
+            });
+
             findViewById(R.id.store_button).setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
@@ -96,6 +105,7 @@ public class CustomerStoreView extends AppCompatActivity implements ProductAdapt
                     Intent intent = new Intent(CustomerStoreView.this, CustomerOrderConfirmation.class);
                     intent.putExtra("ORDER_DATA", order);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
             });
         } else {
