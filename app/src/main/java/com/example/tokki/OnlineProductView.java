@@ -71,6 +71,13 @@ public class OnlineProductView extends AppCompatActivity implements ManagerProdu
                 storeLogo.setImageResource(R.drawable.img);
             }
 
+            findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                    overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
+                }
+            });
 
             new Thread(() -> {
                 try {

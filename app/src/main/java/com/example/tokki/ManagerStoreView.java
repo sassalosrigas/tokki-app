@@ -1,6 +1,7 @@
 package com.example.tokki;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -39,6 +40,14 @@ public class ManagerStoreView extends AppCompatActivity{
         storeAdapter = new StoreAdapter(this, allStores);
         listView.setAdapter(storeAdapter);
 
+        findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+
         new Thread(() -> {
             try {
                 final List<Store> stores = Manager.showAllStores();
@@ -69,11 +78,13 @@ public class ManagerStoreView extends AppCompatActivity{
                             Intent intent = new Intent(ManagerStoreView.this, AddProductActivity.class);
                             intent.putExtra("STORE", clickedStore);
                             startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
                         })
                         .setNegativeButton("View Offline Products", (dialog, which) -> {
                             Intent intent = new Intent(ManagerStoreView.this, OfflineProductView.class);
                             intent.putExtra("STORE", clickedStore);
                             startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
                         })
                         .setNeutralButton("Cancel", null)
                         .show();
@@ -82,11 +93,14 @@ public class ManagerStoreView extends AppCompatActivity{
                 intent.putExtra("STORE", clickedStore);
                 intent.putExtra("SHOW_SWITCH", true);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
             }else if (function.equals("MODIFY_STOCK")){
                 Intent intent = new Intent(ManagerStoreView.this, OnlineProductView.class);
                 intent.putExtra("STORE", clickedStore);
                 intent.putExtra("SHOW_SWITCH", false);
-                startActivity(intent);}
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
+            }
 
         });
 

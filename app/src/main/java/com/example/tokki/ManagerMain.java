@@ -35,7 +35,6 @@ public class ManagerMain extends AppCompatActivity {
             return insets;
         });
 
-
         findViewById(R.id.addstore_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,8 +72,6 @@ public class ManagerMain extends AppCompatActivity {
             }
         });
 
-
-
         findViewById(R.id.addproduct_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +79,7 @@ public class ManagerMain extends AppCompatActivity {
                 Intent intent = new Intent(ManagerMain.this, ManagerStoreView.class);
                 intent.putExtra("FUNCTION", "ADD_PRODUCT");
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -92,6 +90,7 @@ public class ManagerMain extends AppCompatActivity {
                 Intent intent = new Intent(ManagerMain.this, ManagerStoreView.class);
                 intent.putExtra("FUNCTION", "REMOVE_PRODUCT");
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -102,6 +101,7 @@ public class ManagerMain extends AppCompatActivity {
                 Intent intent = new Intent(ManagerMain.this, ManagerStoreView.class);
                 intent.putExtra("FUNCTION","MODIFY_STOCK");
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -111,6 +111,7 @@ public class ManagerMain extends AppCompatActivity {
                 Toast.makeText(ManagerMain.this, "Entering Statistics", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ManagerMain.this, StatisticsPage.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }

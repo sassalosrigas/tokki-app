@@ -75,10 +75,8 @@ public class CustomerStoreView extends AppCompatActivity implements ProductAdapt
             findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Intent intent = new Intent(CustomerStoreView.this, CustomerMain.class);
-                    //startActivity(intent);
                     finish();
-                    overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_up);
+                    overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
                 }
             });
 
