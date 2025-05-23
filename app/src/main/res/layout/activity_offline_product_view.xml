@@ -8,9 +8,6 @@
     android:background="@color/jet"
     tools:context=".CustomerStoreView">
 
-    <!-- Toolbar with logo -->
-
-    <!-- Store Information Section -->
 
     <ImageView
         android:id="@+id/store_logo2"

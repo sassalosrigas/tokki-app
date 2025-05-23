@@ -76,7 +76,7 @@ public class OfflineProductView extends AppCompatActivity {
 
             new Thread(() -> {
                 try {
-                    products = Manager.getOnlineProducts(store);
+                    products = Manager.getOfflineProducts(store);
                     Log.d("RETURNED", "Size" + products.size());
                     runOnUiThread(() -> {
                         if (products != null && !products.isEmpty()) {
