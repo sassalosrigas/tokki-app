@@ -164,6 +164,22 @@ public class Manager{
         }
     }
 
+    public static boolean removeProductFromStore(Store store, Product product) throws IOException, ClassNotFoundException {
+        Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+
+        out.writeObject(new WorkerFunctions("REMOVE_PRODUCT",store,product));
+        out.flush();
+        Object response = in.readObject();
+        if(response instanceof String){
+            System.out.println("Server response: " + response);
+        }
+        out.close();
+        in.close();
+        socket.close();
+        return true;
+    }
     public static List<Store> getAllStores() throws IOException, ClassNotFoundException {
         Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());

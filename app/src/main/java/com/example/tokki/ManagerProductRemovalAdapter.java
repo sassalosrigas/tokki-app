@@ -12,16 +12,23 @@ import androidx.appcompat.widget.SwitchCompat;
 
 import com.example.tokki.java.Product;
 
+import java.io.IOException;
 import java.util.List;
 
 public class ManagerProductRemovalAdapter extends BaseAdapter {
     private Context context;
     private List<Product> products;
 
-
-    public ManagerProductRemovalAdapter(Context context, List<Product> products){
+    private ManagerProductRemove productRemoveListener;
+    public ManagerProductRemovalAdapter(Context context, List<Product> products, ManagerProductRemove productRemoveListener){
         this.context = context;
         this.products = products;
+        this.productRemoveListener = productRemoveListener;
+
+    }
+
+    public interface ManagerProductRemove {
+        void onSwitchFlipped(int position) throws IOException, ClassNotFoundException;
     }
 
     public void setProducts(List<Product> products) {
@@ -75,6 +82,24 @@ public class ManagerProductRemovalAdapter extends BaseAdapter {
             Toast.makeText(context, "Switch toggled and now locked.", Toast.LENGTH_SHORT).show();
         });
 
+        holder.availabilitySwitch.setOnCheckedChangeListener(null);
+        holder.availabilitySwitch.setChecked(true); // Default state
+
+
+        holder.availabilitySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!isChecked) {
+                Toast.makeText(context, "REMOVED", Toast.LENGTH_SHORT).show();
+                if(productRemoveListener!=null){
+                    try {
+                        productRemoveListener.onSwitchFlipped(position);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
 
         return convertView;
     }

@@ -27,7 +27,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.io.IOException;
 import java.util.List;
 
-public class OnlineProductView extends AppCompatActivity {
+public class OnlineProductView extends AppCompatActivity implements ManagerProductRemovalAdapter.ManagerProductRemove{
 
     private ImageView storeLogo;
     private TextView storeTitle;
@@ -39,6 +39,7 @@ public class OnlineProductView extends AppCompatActivity {
     private BaseAdapter productAdapter;
 
     private List<Product> products;
+
     //@SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,6 @@ public class OnlineProductView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_product_view);
         boolean showSwitch = getIntent().getBooleanExtra("SHOW_SWITCH", false);
-
         storeLogo = findViewById(R.id.store_logo2);
         storeTitle = findViewById(R.id.store_tittle);
         storeCategory = findViewById(R.id.store_category_main);
@@ -73,13 +73,18 @@ public class OnlineProductView extends AppCompatActivity {
 
 
             new Thread(() -> {
-                products = store.getProducts();
+                try {
+                    products = Manager.getOnlineProducts(store);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
                 runOnUiThread(() -> {
                     if (products!=null) {
                         Toast.makeText(OnlineProductView.this, "Listed all online products", Toast.LENGTH_SHORT).show();
                         if (showSwitch) {
-                            productAdapter = new ManagerProductRemovalAdapter(this, products);
-
+                            productAdapter = new ManagerProductRemovalAdapter(this, products,this);
                         }else{
                             productAdapter = new ManagerProductAdapter(this,products);
                             productsListView.setOnItemClickListener((parent, view, position, id) -> {
@@ -129,5 +134,30 @@ public class OnlineProductView extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public void onSwitchFlipped(int position) throws IOException, ClassNotFoundException {
+        Toast.makeText(OnlineProductView.this, "FLIPPED", Toast.LENGTH_SHORT).show();
+        Product product = (Product) productAdapter.getItem(position);
+        Store store = (Store) getIntent().getSerializableExtra("STORE");
+        new Thread(() -> {
+            boolean removed = false;
+            try {
+                removed = Manager.removeProductFromStore(store,product);
+                boolean finalRemoved = removed;
+                runOnUiThread(() -> {
+                    if (finalRemoved) {
+                        Toast.makeText(OnlineProductView.this, "Product removed successfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(OnlineProductView.this, "Failed to remove product", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
     }
 }

@@ -103,8 +103,10 @@ public class AddProductActivity extends AppCompatActivity {
                         throw new RuntimeException(e);
                     }
                 }).start();
+                finish();
             }
             Toast.makeText(this, "Submitted: " + name, Toast.LENGTH_SHORT).show();
+
         });
     }
 }

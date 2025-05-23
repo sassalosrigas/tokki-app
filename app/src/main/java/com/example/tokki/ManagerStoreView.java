@@ -91,4 +91,5 @@ public class ManagerStoreView extends AppCompatActivity{
         });
 
     }
+
 }
