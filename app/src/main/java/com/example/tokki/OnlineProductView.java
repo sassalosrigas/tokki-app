@@ -53,7 +53,6 @@ public class OnlineProductView extends AppCompatActivity implements ManagerProdu
         storeRating = findViewById(R.id.store_rating);
         storePrice = findViewById(R.id.store_price);
 
-
         Store store = (Store) getIntent().getSerializableExtra("STORE");
 
         if (store != null) {
@@ -113,14 +112,18 @@ public class OnlineProductView extends AppCompatActivity implements ManagerProdu
                                 addBtn.setOnClickListener(bv -> {
                                     new Thread(() -> {
                                         try {
-                                            Manager.modifyAvailability(store, selectedProduct, Integer.parseInt(input.getText().toString()));
+                                            boolean changed = Manager.modifyAvailability(store, selectedProduct, Integer.parseInt(input.getText().toString()));
+                                            runOnUiThread(() -> {
+                                                if (changed) {
+                                                    Toast.makeText(this, "new amount set", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
                                         } catch (IOException e) {
                                             throw new RuntimeException(e);
                                         } catch (ClassNotFoundException e) {
                                             throw new RuntimeException(e);
                                         }
                                     }).start();
-                                    Toast.makeText(this, "new amount set", Toast.LENGTH_SHORT).show();
                                     dialog.dismiss();
                                 });
                                 cancelBtn.setOnClickListener(bv -> dialog.dismiss());
