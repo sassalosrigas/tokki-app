@@ -507,18 +507,20 @@ public class Manager{
         }
     }
 
-    public static void modifyAvailability(Store store, Product product, int quantity) throws IOException, ClassNotFoundException {
+    public static boolean modifyAvailability(Store store, Product product, int quantity) throws IOException, ClassNotFoundException {
         Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-        out.writeObject(new WorkerFunctions("MODIFY_AVAILABILITY",store,product,quantity));
+        out.writeObject(new WorkerFunctions("MODIFY_STOCK",store,product,quantity));
         Object response = in.readObject();
         if(response instanceof Store){
             System.out.println("Server response: " + ((Store) response).getStoreName());
+            Log.d("stock response", (String) response);
         }
         out.close();
         in.close();
         socket.close();
+        return true;
     }
 
 

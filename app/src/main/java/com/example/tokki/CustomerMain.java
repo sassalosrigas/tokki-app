@@ -49,8 +49,8 @@ public class CustomerMain extends AppCompatActivity {
         storeAdapter = new StoreAdapter(this, nearbyStores);
         listView.setAdapter(storeAdapter);
 
-        //Customer customer = new Customer("rigas", "123", 37.986633, 23.734900);
-        Customer customer = (Customer) getIntent().getSerializableExtra("CUSTOMER");
+        Customer customer = new Customer("rigas", "123", 37.986633, 23.734900);
+        //Customer customer = (Customer) getIntent().getSerializableExtra("CUSTOMER");
         new Thread(() -> {
             List<Store> stores = customer.showNearbyStores();
             runOnUiThread(() -> {
