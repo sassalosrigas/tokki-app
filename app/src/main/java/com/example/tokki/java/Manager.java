@@ -359,6 +359,16 @@ public class Manager{
         }
         return false;
     }
+
+    public static void reactivateProduct(Store store, Product product) throws IOException, ClassNotFoundException {
+        Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+        out.writeObject(new WorkerFunctions("REACTIVATE_PRODUCT", store, product));
+        out.flush();
+        Object response = in.readObject();
+        Log.d("REACTIVATION", (String) response);
+    }
     public static void salesPerProduct(Scanner input){
         /*
             Methodos gia epilogh statistikou kai emfanish tou
@@ -506,6 +516,7 @@ public class Manager{
             throw new RuntimeException(e);
         }
     }
+
 
     public static boolean modifyAvailability(Store store, Product product, int quantity) throws IOException, ClassNotFoundException {
         Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);

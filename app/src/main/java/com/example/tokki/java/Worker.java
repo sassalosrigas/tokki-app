@@ -267,11 +267,17 @@ public class Worker extends Thread{
     }
 
     public String reactivateProduct(Store store, Product product) {
-        for (Product p : store.getProducts()) {
-            if (p.getProductName().equals(product.getProductName())) {
-                synchronized(p){
-                    p.setOnline(true);
-                    p.setAvailableAmount(product.getAvailableAmount());
+        for(Store s : storeList){
+            if(s.equals(store)){
+                synchronized (s){
+                    for(Product p: s.getProducts()){
+                        if(p.getProductName().equals(product.getProductName())){
+                            synchronized (p){
+                                p.setOnline(true);
+                            }
+                            s.calculatePriceCategory();
+                        }
+                    }
                 }
             }
         }

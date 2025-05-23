@@ -1,4 +1,5 @@
 package com.example.tokki;
+import com.example.tokki.java.Manager;
 import com.example.tokki.java.Order;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import com.example.tokki.java.Product;
 import com.example.tokki.java.Store;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +33,8 @@ public class CustomerStoreView extends AppCompatActivity implements ProductAdapt
     private ProductAdapter productAdapter;
 
     private List<Integer> quantities;
+
+    private List<Product> products;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +65,25 @@ public class CustomerStoreView extends AppCompatActivity implements ProductAdapt
             } else {
                 storeLogo.setImageResource(R.drawable.img);
             }
-
-            productsListView = findViewById(R.id.products_list_view);
-            productAdapter = new ProductAdapter(this, store.getProducts(), this);
-            productsListView.setAdapter(productAdapter);
+            new Thread(()-> {
+                try {
+                    products = Manager.getOnlineProducts(store);
+                    runOnUiThread(() -> {
+                        if(!products.isEmpty()){
+                            Toast.makeText(this, "Fetched all available products", Toast.LENGTH_SHORT).show();
+                            productsListView = findViewById(R.id.products_list_view);
+                            productAdapter = new ProductAdapter(this, products, this);
+                            productsListView.setAdapter(productAdapter);
+                        }else {
+                            Toast.makeText(this, "Store has no available products", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            }).start();
 
         /*
         productsListView.setOnItemClickListener((parent, view, position, id) -> {
