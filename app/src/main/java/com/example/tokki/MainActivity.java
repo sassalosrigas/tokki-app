@@ -18,8 +18,12 @@ import com.example.tokki.java.Customer;
 import com.example.tokki.java.Manager;
 import com.example.tokki.java.Master;
 import com.example.tokki.java.Worker;
+import com.example.tokki.java.WorkerFunctions;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,17 +38,17 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Master master = new Master();
-        master.openServer();
+        //Master master = new Master();
+        //master.openServer();
         try {
             sleep(4000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        Worker worker = new Worker(8081);
-        Master.getWorkers().add(worker);
-        worker.start();
-        Master.rebalanceStores();
+        //Worker worker = new Worker(8081);
+        //Master.getWorkers().add(worker);
+        //worker.start();
+        //Master.rebalanceStores();
         try {
             String[] files = getAssets().list("");
             Log.d("Assets", "All files: " + Arrays.toString(files));
@@ -52,6 +56,17 @@ public class MainActivity extends AppCompatActivity {
             Log.e("Assets", "Error listing assets", e);
         }
         new Thread(() -> {
+            Socket masterSocket = null;  // Connect to Master
+            try {
+                masterSocket = new Socket("192.168.1.4", 8080);
+                ObjectOutputStream out = null;
+                out = new ObjectOutputStream(masterSocket.getOutputStream());
+                ObjectInputStream in = new ObjectInputStream(masterSocket.getInputStream());
+                out.writeObject(new WorkerFunctions("REGISTER"));
+                out.flush();
+            } catch (RuntimeException | IOException e) {
+                throw new RuntimeException(e);
+            }
             boolean isAdded = Manager.addStore(MainActivity.this, "store.json");
             Manager.addStore(MainActivity.this, "store2.json");
             Manager.addStore(MainActivity.this, "store3.json");

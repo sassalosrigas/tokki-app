@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Customer implements Serializable {
     private String username,password;
     private double longitude,latitude;
-
+    private static final long serialVersionUID = 1254840259994782788L;
     public static class ProductOrder implements Serializable {
         /*
             Bohthitikh klash gia na parakolouthei to kalathi mias paraggelias
@@ -79,7 +79,7 @@ public class Customer implements Serializable {
          */
         try{
             List<Store> stores = null;
-            Socket socket = new Socket("127.0.0.1", 8080);
+            Socket socket = new Socket("192.168.1.4", 8080);
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             out.writeObject(new WorkerFunctions("SHOW_STORES", this));
@@ -107,7 +107,7 @@ public class Customer implements Serializable {
             Dhmiourgia paraggelias apo katasthma kai agora
          */
         try{
-            Socket socket = new Socket("localhost", 8080);
+            Socket socket = new Socket("192.168.1.4", 8080);
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             out.writeObject(new WorkerFunctions("SHOW_STORES", this));
@@ -168,7 +168,7 @@ public class Customer implements Serializable {
                             /*
                                 Oristikopoiei thn paraggelia kai tiponei to kalathi me ta proionta
                              */
-                            socket = new Socket("localhost", 8080);
+                            socket = new Socket("192.168.1.4", 8080);
                             out = new ObjectOutputStream(socket.getOutputStream());
                             in = new ObjectInputStream(socket.getInputStream());
                             out.writeObject(new WorkerFunctions("COMPLETE_PURCHASE", store, this));
@@ -188,7 +188,7 @@ public class Customer implements Serializable {
                                 Akironei thn paraggelia kai epitrefei to katasthma sthn katastash pou eixe prin thn
                                 enarksh ths
                              */
-                            socket = new Socket("localhost", 8080);
+                            socket = new Socket("192.168.1.4", 8080);
                             out = new ObjectOutputStream(socket.getOutputStream());
                             in = new ObjectInputStream(socket.getInputStream());
                             out.writeObject(new WorkerFunctions("ROLLBACK_PURCHASE", store, this));
@@ -214,7 +214,7 @@ public class Customer implements Serializable {
     }
 
     public boolean reserveProduct(Product product, Store store, int quantity) throws IOException, ClassNotFoundException {
-        Socket socket = new Socket("127.0.0.1", 8080);
+        Socket socket = new Socket("192.168.1.4", 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
         out.writeObject(new WorkerFunctions("RESERVE_PRODUCT", product,store,this, quantity));  //Desmeuei ena proion prosorina
@@ -236,7 +236,7 @@ public class Customer implements Serializable {
     }
 
     public boolean rollbackPurchase(Store store) throws IOException, ClassNotFoundException {
-        Socket socket = new Socket("127.0.0.1", 8080);
+        Socket socket = new Socket("192.168.1.4", 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
         out.writeObject(new WorkerFunctions("ROLLBACK_PURCHASE", store, this));
@@ -250,7 +250,7 @@ public class Customer implements Serializable {
     }
 
     public boolean completePurchase(Store store) throws IOException, ClassNotFoundException {
-        Socket socket = new Socket("127.0.0.1", 8080);
+        Socket socket = new Socket("192.168.1.4", 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
         out.writeObject(new WorkerFunctions("COMPLETE_PURCHASE", store, this));
@@ -283,7 +283,7 @@ public class Customer implements Serializable {
             System.out.println("Price Category (leave empty for any):");
             String priceCat = in.nextLine();
 
-            Socket socket = new Socket("localhost", 8080);
+            Socket socket = new Socket("192.168.1.4", 8080);
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream inp = new ObjectInputStream(socket.getInputStream());
 
@@ -313,7 +313,7 @@ public class Customer implements Serializable {
          */
         List<Store> results = null;
         try {
-            Socket socket = new Socket("127.0.0.1", 8080);
+            Socket socket = new Socket("192.168.1.4", 8080);
             Log.d("Category", "Category in customer: " + category);
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
@@ -343,7 +343,7 @@ public class Customer implements Serializable {
             Bathmologhsh katasthmatos
          */
         try{
-            Socket socket = new Socket("localhost", 8080);
+            Socket socket = new Socket("192.168.1.4", 8080);
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream inp = new ObjectInputStream(socket.getInputStream());
             out.writeObject(new WorkerFunctions("SHOW_ALL_STORES"));
