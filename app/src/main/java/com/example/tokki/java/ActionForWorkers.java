@@ -317,7 +317,7 @@ public class ActionForWorkers extends Thread {
 
     private void sendToReducer(String operation, String key, Map<String, Integer> mappedResults) {
         try {
-            Socket reducerSocket = new Socket("192.168.1.4", 9090);
+            Socket reducerSocket = new Socket("127.0.0.1", 9090);
             ObjectOutputStream out = new ObjectOutputStream(reducerSocket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(reducerSocket.getInputStream());
             out.writeObject(operation);
@@ -333,7 +333,7 @@ public class ActionForWorkers extends Thread {
 
     private void sendFilterToReducer(String operation, String key, List<Store> mappedResults) {
         try {
-            Socket reducerSocket = new Socket("192.168.1.4", 9090);
+            Socket reducerSocket = new Socket("127.0.0.1", 9090);
             ObjectOutputStream out = new ObjectOutputStream(reducerSocket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(reducerSocket.getInputStream());
             out.writeObject(operation);

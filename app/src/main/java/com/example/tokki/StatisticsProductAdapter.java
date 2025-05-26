@@ -59,8 +59,8 @@ public class StatisticsProductAdapter extends BaseAdapter {
 
         Product product = products.get(position);
         holder.productTitle.setText(product.getProductName());
-        holder.productCategory.setText(product.getProductType());
-        holder.productPrice.setText(String.format("€%.2f", product.getPrice()));
+        holder.productCategory.setText("sales:");
+        holder.productPrice.setText(Integer.toString(product.getTotalSales()));
 
         return convertView;
     }

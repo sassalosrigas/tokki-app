@@ -410,7 +410,7 @@ public class ActionsForMaster extends Thread {
 
     private Object forwardToWorker(Worker worker, WorkerFunctions request)
             throws IOException, ClassNotFoundException {
-        try (Socket workerSocket = new Socket("192.168.1.4", worker.getPort());
+        try (Socket workerSocket = new Socket("127.0.0.1", worker.getPort());
              ObjectOutputStream workerOut = new ObjectOutputStream(workerSocket.getOutputStream());
              ObjectInputStream workerIn = new ObjectInputStream(workerSocket.getInputStream())) {
 

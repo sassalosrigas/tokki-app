@@ -38,17 +38,17 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        //Master master = new Master();
-        //master.openServer();
+        Master master = new Master();
+        master.openServer();
         try {
             sleep(4000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        //Worker worker = new Worker(8081);
-        //Master.getWorkers().add(worker);
-        //worker.start();
-        //Master.rebalanceStores();
+        Worker worker = new Worker(8081);
+        Master.getWorkers().add(worker);
+        worker.start();
+        Master.rebalanceStores();
         try {
             String[] files = getAssets().list("");
             Log.d("Assets", "All files: " + Arrays.toString(files));
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         }
         new Thread(() -> {
             Socket masterSocket = null;  // Connect to Master
+            /*
             try {
                 masterSocket = new Socket("192.168.2.9", 8080);
                 ObjectOutputStream out = null;
@@ -67,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
             } catch (RuntimeException | IOException e) {
                 throw new RuntimeException(e);
             }
+
+             */
             boolean isAdded = Manager.addStore(MainActivity.this, "store.json");
             Manager.addStore(MainActivity.this, "store2.json");
             Manager.addStore(MainActivity.this, "store3.json");

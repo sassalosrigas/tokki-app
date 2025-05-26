@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Tokki"
         tools:targetApi="31">
         <activity
+            android:name=".ProductView"
+            android:exported="false" />
+        <activity
             android:name=".StatisticsProductAdapter"
             android:exported="false" />
         <activity

@@ -137,7 +137,7 @@ public class Master {
     }
 
     public static void registerWorker() throws IOException {
-        Socket masterSocket = new Socket("10.0.2.2", 8080);  // Connect to Master
+        Socket masterSocket = new Socket("127.0.0.1", 8080);  // Connect to Master
         ObjectOutputStream out = new ObjectOutputStream(masterSocket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(masterSocket.getInputStream());
         out.writeObject(new WorkerFunctions("REGISTER"));
