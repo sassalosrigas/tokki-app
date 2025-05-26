@@ -43,5 +43,25 @@ public class StatisticsPage extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.salesperprodcat).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StatisticsPage.this, ManagerStatisticsFormat.class);
+                intent.putExtra("FUNCTION", "SALES_PER_PRODUCT_CATEGORY");
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        findViewById(R.id.salespershopcat).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StatisticsPage.this, ManagerStatisticsFormat.class);
+                intent.putExtra("FUNCTION", "SALES_PER_STORE_CATEGORY");
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
     }
 }
