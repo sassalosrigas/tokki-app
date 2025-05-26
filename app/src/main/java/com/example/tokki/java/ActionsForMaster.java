@@ -124,6 +124,7 @@ public class ActionsForMaster extends Thread {
         Worker worker = new Worker(8080 + (++nums));
         Master.getWorkers().add(worker);
         worker.start();
+        Master.rebalanceStores();
     }
 
     private void handleAddStore(WorkerFunctions request, ObjectOutputStream out)
@@ -183,7 +184,7 @@ public class ActionsForMaster extends Thread {
         Object response = forwardToWorker(primaryWorker, request);
         out.writeObject(response);
 
-        if (response instanceof String && ((String) response).contains("success")) {
+        if (response instanceof String && ((String) response).contains("added")) {
             forwardToWorker(replicaWorker,
                     new WorkerFunctions("SYNC_STORE", primaryWorker.getStore(store.getStoreName())));
         }
@@ -200,7 +201,7 @@ public class ActionsForMaster extends Thread {
         Object response = forwardToWorker(primaryWorker, request);
         out.writeObject(response);
 
-        if (response instanceof String && ((String) response).contains("Removed")) {
+        if (response instanceof String && ((String) response).contains("removed")) {
             forwardToWorker(replicaWorker,
                     new WorkerFunctions("SYNC_STORE", primaryWorker.getStore(store.getStoreName())));
         }
@@ -232,10 +233,8 @@ public class ActionsForMaster extends Thread {
         Object response = forwardToWorker(primaryWorker, request);
         out.writeObject(response);
 
-        if (response instanceof String && ((String) response).contains("Reactivated")) {
-            forwardToWorker(replicaWorker,
-                    new WorkerFunctions("SYNC_STORE", primaryWorker.getStore(store.getStoreName())));
-        }
+        forwardToWorker(replicaWorker,
+                new WorkerFunctions("SYNC_STORE", primaryWorker.getStore(store.getStoreName())));
     }
 
     private void handleApplyRating(WorkerFunctions request, ObjectOutputStream out)
@@ -282,7 +281,7 @@ public class ActionsForMaster extends Thread {
         Object response = forwardToWorker(primaryWorker, request);
         out.writeObject(response);
 
-        if (response instanceof String && ((String) response).contains("success")) {
+        if (response instanceof String && ((String) response).contains("successful")) {
             forwardToWorker(replicaWorker,
                     new WorkerFunctions("SYNC_STORE", primaryWorker.getStore(store.getStoreName())));
         }
@@ -299,7 +298,7 @@ public class ActionsForMaster extends Thread {
         Object response = forwardToWorker(primaryWorker, request);
         out.writeObject(response);
 
-        if (response instanceof String && ((String) response).contains("success")) {
+        if (response instanceof String && ((String) response).contains("successful")) {
             forwardToWorker(replicaWorker,
                     new WorkerFunctions("SYNC_STORE", primaryWorker.getStore(store.getStoreName())));
         }

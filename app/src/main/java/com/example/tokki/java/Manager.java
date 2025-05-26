@@ -25,7 +25,7 @@ public class Manager{
             Store newStore = JsonHandler.readStoreFromJson(filepath);
             newStore.setFilepath(filepath);
             try{
-                Socket socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+                Socket socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
                 out.writeObject(new WorkerFunctions("ADD_STORE",newStore));
@@ -57,7 +57,7 @@ public class Manager{
                 Store newStore = JsonHandler.readStoreFromAssets(context, filename);
                 newStore.setFilepath(filename);
 
-                Socket socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+                Socket socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
@@ -110,7 +110,7 @@ public class Manager{
             Epilogh proiontos apo uparxonta kai thesimo tou ws offline
          */
         try{
-            Socket socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+            Socket socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             out.writeObject(new WorkerFunctions("SHOW_ALL_STORES"));
@@ -127,7 +127,7 @@ public class Manager{
                 int choice = input.nextInt();
                 if(choice >= 1 && choice <= stores.size()){
                     Store store = stores.get(choice-1);
-                    socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+                    socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
                     out = new ObjectOutputStream(socket.getOutputStream());
                     in = new ObjectInputStream(socket.getInputStream());
                     System.out.println("Choose product to be removed: ");
@@ -165,7 +165,7 @@ public class Manager{
     }
 
     public static boolean removeProductFromStore(Store store, Product product) throws IOException, ClassNotFoundException {
-        Socket socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+        Socket socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
@@ -181,7 +181,7 @@ public class Manager{
         return true;
     }
     public static List<Store> getAllStores() throws IOException, ClassNotFoundException {
-        Socket socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+        Socket socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
@@ -199,7 +199,7 @@ public class Manager{
     }
 
     public static List<Product> getOfflineProducts(Store store) throws IOException, ClassNotFoundException {
-        Socket socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+        Socket socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
@@ -217,7 +217,7 @@ public class Manager{
     }
 
     public static List<Product> getOnlineProducts(Store store) throws IOException, ClassNotFoundException {
-        Socket socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+        Socket socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
@@ -236,7 +236,7 @@ public class Manager{
     }
     public static void addProductToStore(Scanner input) {
         try {
-            Socket socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+            Socket socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
@@ -258,7 +258,7 @@ public class Manager{
 
                 if (storeChoice >= 1 && storeChoice <= stores.size()) {
                     Store store = stores.get(storeChoice - 1);
-                    socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+                    socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
                     out = new ObjectOutputStream(socket.getOutputStream());
                     in = new ObjectInputStream(socket.getInputStream());
                     /* emfanise kai ta anenerga proionta se periptwsh pou o manager thelei na
@@ -270,7 +270,7 @@ public class Manager{
 
                     if (offlineResponse instanceof List) {
                         List<Product> offlineProducts = (List<Product>) offlineResponse;
-                        socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+                        socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
                         out = new ObjectOutputStream(socket.getOutputStream());
                         in = new ObjectInputStream(socket.getInputStream());
                         if (!offlineProducts.isEmpty()) {  //periptwsh pou iparxoun offline proionta
@@ -285,7 +285,7 @@ public class Manager{
                             input.nextLine();
 
                             if (productChoice > 0 && productChoice <= offlineProducts.size()) {
-                                socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+                                socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
                                 out = new ObjectOutputStream(socket.getOutputStream());
                                 in = new ObjectInputStream(socket.getInputStream());
                                 Product toReactivate = offlineProducts.get(productChoice - 1);
@@ -304,7 +304,7 @@ public class Manager{
                             }else if(productChoice == 0){
                                 System.out.println("\nCreating new product for " + store.getStoreName());
                                 Product product = addProduct(input);
-                                socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+                                socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
                                 out = new ObjectOutputStream(socket.getOutputStream());
                                 in = new ObjectInputStream(socket.getInputStream());
                                 out.writeObject(new WorkerFunctions("ADD_PRODUCT", store, product));
@@ -322,7 +322,7 @@ public class Manager{
                             if(choice == 1){
                                 System.out.println("\nCreating new product for " + store.getStoreName());
                                 Product product = addProduct(input);
-                                socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+                                socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
                                 out = new ObjectOutputStream(socket.getOutputStream());
                                 in = new ObjectInputStream(socket.getInputStream());
                                 out.writeObject(new WorkerFunctions("ADD_PRODUCT", store, product));
@@ -348,7 +348,7 @@ public class Manager{
     }
 
     public static boolean addProductToStore(Store store, Product product) throws IOException, ClassNotFoundException {
-        Socket socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+        Socket socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
         out.writeObject(new WorkerFunctions("ADD_PRODUCT", store, product));
@@ -361,7 +361,7 @@ public class Manager{
     }
 
     public static void reactivateProduct(Store store, Product product) throws IOException, ClassNotFoundException {
-        Socket socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+        Socket socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
         out.writeObject(new WorkerFunctions("REACTIVATE_PRODUCT", store, product));
@@ -381,7 +381,7 @@ public class Manager{
             int choice = input.nextInt();
             input.nextLine();
 
-            Socket socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+            Socket socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             out.flush();
@@ -406,7 +406,7 @@ public class Manager{
                         choice = input.nextInt();
                         if(choice >= 1 && choice <= stores.size()){
                             Store store = stores.get(choice-1);
-                            socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+                            socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
                             out = new ObjectOutputStream(socket.getOutputStream());
                             in = new ObjectInputStream(socket.getInputStream());
                             out.writeObject(new WorkerFunctions("PRODUCT_SALES", store.getStoreName()));
@@ -466,7 +466,7 @@ public class Manager{
             Allagh tou diathesimou stock enos proiontos
          */
         try{
-            Socket socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+            Socket socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             out.writeObject(new WorkerFunctions("SHOW_ALL_STORES"));
@@ -491,7 +491,7 @@ public class Manager{
                     choice = input.nextInt();
                     if(choice >= 1 && choice <= store.getProducts().size()){
                         Product product = store.getProducts().get(choice-1);
-                        socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+                        socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
                         out = new ObjectOutputStream(socket.getOutputStream());
                         in = new ObjectInputStream(socket.getInputStream());
                         System.out.println("Give new quantity:");
@@ -519,7 +519,7 @@ public class Manager{
 
 
     public static boolean modifyAvailability(Store store, Product product, int quantity) throws IOException, ClassNotFoundException {
-        Socket socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+        Socket socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
         out.writeObject(new WorkerFunctions("MODIFY_STOCK",store,product,quantity));
@@ -537,7 +537,7 @@ public class Manager{
 
     public static List<Store> showAllStores() throws IOException, ClassNotFoundException {
         List<Store> stores = null;
-        Socket socket = new Socket(InetAddress.getByName("192.168.1.4"), 8080);
+        Socket socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream inp = new ObjectInputStream(socket.getInputStream());
         out.writeObject(new WorkerFunctions("SHOW_ALL_STORES"));
