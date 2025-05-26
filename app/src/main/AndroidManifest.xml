@@ -18,6 +18,9 @@
             android:name=".ManagerStatisticsFormat"
             android:exported="false" />
         <activity
+            android:name=".StatisticsProductAdapter"
+            android:exported="false" />
+        <activity
             android:name=".ManagerProductRemovalAdapter"
             android:exported="false" />
         <activity

@@ -104,7 +104,9 @@ public class ActionForWorkers extends Thread {
                 case "ADD_PRODUCT":
                     handleAddProduct(request);
                     break;
-
+                case "GET_ALL_PRODUCTS":
+                    handleGetAllProducts(request);
+                    break;
                 case "GET_OFFLINE_PRODUCTS":
                     handleGetOfflineProducts(request);
                     break;
@@ -195,6 +197,11 @@ public class ActionForWorkers extends Thread {
         out.writeObject(productAdded ? "Product added" : "Product exists");
     }
 
+    private void handleGetAllProducts(WorkerFunctions request) throws IOException {
+        Store storeForProducts = (Store) request.getObject();
+        List<Product> offlineProducts = worker.getAllProducts(storeForProducts);
+        out.writeObject(offlineProducts);
+    }
     private void handleGetOfflineProducts(WorkerFunctions request) throws IOException {
         Store storeForProducts = (Store) request.getObject();
         List<Product> offlineProducts = worker.getOfflineProducts(storeForProducts);

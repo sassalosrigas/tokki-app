@@ -216,6 +216,24 @@ public class Manager{
         return products;
     }
 
+    public static List<Product> getAllProducts(Store store) throws IOException, ClassNotFoundException {
+        Socket socket = new Socket(InetAddress.getByName("192.168.2.9"), 8080);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+
+        out.writeObject(new WorkerFunctions("GET_ALL_PRODUCTS", store));
+        out.flush();
+        Object response = in.readObject();
+        ArrayList<Product> products = null;
+        if(response instanceof ArrayList){
+            products = (ArrayList<Product>) response;
+        }
+        out.close();
+        in.close();
+        socket.close();
+        return products;
+    }
+
     public static List<Product> getOnlineProducts(Store store) throws IOException, ClassNotFoundException {
         Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());

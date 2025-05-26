@@ -100,6 +100,10 @@ public class ManagerStoreView extends AppCompatActivity{
                 intent.putExtra("SHOW_SWITCH", false);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
+            } else if (function.equals("SALES_PER_PRODUCT")) {
+                Intent intent = new Intent(ManagerStoreView.this, OnlineProductView.class);
+                intent.putExtra("STORE", clickedStore);
+                startActivity(intent);
             }
 
         });

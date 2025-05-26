@@ -108,7 +108,8 @@ public class OnlineProductView extends AppCompatActivity implements ManagerProdu
                                 MaterialButton addBtn = popupView.findViewById(R.id.addBtn);
                                 MaterialButton cancelBtn = popupView.findViewById(R.id.cancelBtn);
                                 TextInputEditText input = popupView.findViewById(R.id.storeNameEditText);
-
+                                TextView text = popupView.findViewById(R.id.addstoremsg2);
+                                text.setText("old amount: " + selectedProduct.getAvailableAmount());
                                 addBtn.setOnClickListener(bv -> {
                                     new Thread(() -> {
                                         try {
