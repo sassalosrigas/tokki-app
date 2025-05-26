@@ -18,9 +18,12 @@ public class StatisticsProductAdapter extends BaseAdapter {
     private Context context;
     private List<Product> products;
 
-    public StatisticsProductAdapter(Context context, List<Product> products){
+    private String func;
+
+    public StatisticsProductAdapter(Context context, List<Product> products, String func){
         this.context = context;
         this.products = products;
+        this.func = func;
     }
 
     public void setProducts(List<Product> products) {
@@ -58,9 +61,12 @@ public class StatisticsProductAdapter extends BaseAdapter {
         }
 
         Product product = products.get(position);
-        holder.productTitle.setText(product.getProductName());
+        if(func.equals("product_in_store")) {
+            holder.productTitle.setText(product.getProductName());
+            holder.productPrice.setText(Integer.toString(product.getTotalSales()));
+        }
         holder.productCategory.setText("sales:");
-        holder.productPrice.setText(Integer.toString(product.getTotalSales()));
+
 
         return convertView;
     }

@@ -52,7 +52,7 @@ public class ProductAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.productTitle = convertView.findViewById(R.id.product_title);
             holder.productCategory = convertView.findViewById(R.id.product_category);
-            holder.productPrice = convertView.findViewById(R.id.total_sales);
+            holder.productPrice = convertView.findViewById(R.id.product_price);
             holder.buttonDecrease = convertView.findViewById(R.id.button_decrease);
             holder.buttonIncrease = convertView.findViewById(R.id.button_increase);
             holder.textQuantity = convertView.findViewById(R.id.text_quantity);

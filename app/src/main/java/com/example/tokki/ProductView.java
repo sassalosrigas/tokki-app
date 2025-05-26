@@ -89,7 +89,7 @@ public class ProductView extends AppCompatActivity{
                 runOnUiThread(() -> {
                     if (products!=null) {
                         Toast.makeText(ProductView.this, "Listed all products", Toast.LENGTH_SHORT).show();
-                        productAdapter = new StatisticsProductAdapter(this, products);
+                        productAdapter = new StatisticsProductAdapter(this, products, "product_in_store");
                         productsListView.setAdapter(productAdapter);
                         productAdapter.notifyDataSetChanged();
                     } else {

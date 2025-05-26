@@ -61,7 +61,7 @@ public class ManagerProductRemovalAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.productTitle = convertView.findViewById(R.id.product_title);
             holder.productCategory = convertView.findViewById(R.id.product_category);
-            holder.productPrice = convertView.findViewById(R.id.total_sales);
+            holder.productPrice = convertView.findViewById(R.id.product_price);
             holder.availabilitySwitch = convertView.findViewById(R.id.switch1);
             convertView.setTag(holder);
         } else {
