@@ -24,6 +24,14 @@ public class StatisticsPage extends AppCompatActivity {
             return insets;
         });
 
+        findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+
         findViewById(R.id.salesperprod).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -66,6 +66,14 @@ public class CustomerMain extends AppCompatActivity {
 
         Button filterButton = findViewById(R.id.button_filter);
 
+        findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
+            }
+        });
+
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

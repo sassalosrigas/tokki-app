@@ -72,6 +72,14 @@ public class ManagerMain extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
+            }
+        });
+
         findViewById(R.id.addproduct_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

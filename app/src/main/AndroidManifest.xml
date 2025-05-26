@@ -39,9 +39,6 @@
             android:name=".StatisticsPage"
             android:exported="false" />
         <activity
-            android:name=".ModifyStockPage"
-            android:exported="false" />
-        <activity
             android:name=".OfflineProductView"
             android:exported="false" />
         <activity
