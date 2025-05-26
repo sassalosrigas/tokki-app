@@ -44,5 +44,10 @@
     <string name="clear_filters">clear filters</string>
     <string name="inputStock">enter available stock here</string>
     <string name="insert_stock_here">Insert stock here</string>
+    <string name="welcome_to_stats">welcome to stats!</string>
+    <string name="pick_the_statistics_category_you_wish_to_view">pick the statistics category you wish to view...</string>
+    <string name="sales_per_product_category">sales per product category</string>
+    <string name="sales_per_product_in_a_store">sales per product in a store</string>
+    <string name="sales_per_store_category">sales per store category</string>
 
 </resources>

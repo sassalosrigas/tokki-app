@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         new Thread(() -> {
             Socket masterSocket = null;  // Connect to Master
             try {
-                masterSocket = new Socket("192.168.1.4", 8080);
+                masterSocket = new Socket("192.168.2.9", 8080);
                 ObjectOutputStream out = null;
                 out = new ObjectOutputStream(masterSocket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(masterSocket.getInputStream());
