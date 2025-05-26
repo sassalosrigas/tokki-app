@@ -18,6 +18,9 @@
             android:name=".ProductView"
             android:exported="false" />
         <activity
+            android:name=".ManagerStatisticsFormat"
+            android:exported="false" />
+        <activity
             android:name=".StatisticsProductAdapter"
             android:exported="false" />
         <activity
@@ -43,9 +46,6 @@
             android:exported="false" />
         <activity
             android:name=".StatisticsPage"
-            android:exported="false" />
-        <activity
-            android:name=".ModifyStockPage"
             android:exported="false" />
         <activity
             android:name=".OfflineProductView"

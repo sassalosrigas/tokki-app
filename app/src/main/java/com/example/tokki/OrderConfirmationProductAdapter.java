@@ -47,7 +47,7 @@ public class OrderConfirmationProductAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.productTitle = convertView.findViewById(R.id.product_title);
             holder.productCategory = convertView.findViewById(R.id.product_category);
-            holder.productPrice = convertView.findViewById(R.id.product_price);
+            holder.productPrice = convertView.findViewById(R.id.total_sales);
             holder.productQuantity = convertView.findViewById(R.id.product_quantity);
             convertView.setTag(holder);
         } else {

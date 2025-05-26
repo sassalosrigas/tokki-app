@@ -57,9 +57,8 @@ public class MainActivity extends AppCompatActivity {
         }
         new Thread(() -> {
             Socket masterSocket = null;  // Connect to Master
-            /*
-            try {
-                masterSocket = new Socket("192.168.2.9", 8080);
+            /*try {
+                masterSocket = new Socket("10.0.2.2", 8080);
                 ObjectOutputStream out = null;
                 out = new ObjectOutputStream(masterSocket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(masterSocket.getInputStream());
@@ -67,9 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 out.flush();
             } catch (RuntimeException | IOException e) {
                 throw new RuntimeException(e);
-            }
-
-             */
+            }*/
             boolean isAdded = Manager.addStore(MainActivity.this, "store.json");
             Manager.addStore(MainActivity.this, "store2.json");
             Manager.addStore(MainActivity.this, "store3.json");
@@ -102,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Entering Manager", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, ManagerMain.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
             }
         });
     }

@@ -49,6 +49,7 @@
     <string name="sales_per_product_category">sales per product category</string>
     <string name="sales_per_product_in_a_store">sales per product in a store</string>
     <string name="sales_per_store_category">sales per store category</string>
+    <string name="total_sales">total sales</string>
     <string name="set">Set</string>
     <string name="great_lets_set_the_amount">great! lets set the amount...</string>
     <string name="enter_the_new_amount_below">enter the new amount below.</string>
