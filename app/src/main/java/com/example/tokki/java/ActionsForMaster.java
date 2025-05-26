@@ -49,7 +49,9 @@ public class ActionsForMaster extends Thread {
                 case "ADD_STORE":
                     handleAddStore(request, out);
                     break;
-
+                case "GET_ALL_PRODUCTS":
+                    handleGetAllProducts(request, out);
+                    break;
                 case "GET_OFFLINE_PRODUCTS":
                     handleGetOfflineProducts(request, out);
                     break;
@@ -143,6 +145,22 @@ public class ActionsForMaster extends Thread {
     }
 
     private void handleGetOfflineProducts(WorkerFunctions request, ObjectOutputStream out)
+            throws IOException, ClassNotFoundException {
+        Store targetStore = (Store) request.getObject();
+        List<Integer> assign = Master.getWorkerIndicesForStore(targetStore.getStoreName());
+        Worker primaryWorker = master.getWorkers().get(assign.get(0));
+
+        if (master.isAlive(primaryWorker)) {
+            Object products = forwardToWorker(primaryWorker, request);
+            out.writeObject(products);
+        } else {
+            Worker replicaWorker = master.getWorkers().get(assign.get(1));
+            Object products = forwardToWorker(replicaWorker, request);
+            out.writeObject(products);
+        }
+    }
+
+    private void handleGetAllProducts(WorkerFunctions request, ObjectOutputStream out)
             throws IOException, ClassNotFoundException {
         Store targetStore = (Store) request.getObject();
         List<Integer> assign = Master.getWorkerIndicesForStore(targetStore.getStoreName());

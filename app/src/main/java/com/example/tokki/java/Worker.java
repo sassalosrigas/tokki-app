@@ -314,6 +314,16 @@ public class Worker extends Thread{
         }
     }
 
+    public List<Product> getAllProducts(Store store) {
+        Store localStore = getStore(store.getStoreName());
+        if (localStore == null) return Collections.emptyList();
+
+        synchronized (localStore){
+            return localStore.getProducts().stream()
+                    .collect(Collectors.toList());
+        }
+    }
+
     public List<Product> getOnlineProducts(Store store) {
         Store localStore = getStore(store.getStoreName());
         if (localStore == null) return Collections.emptyList();
