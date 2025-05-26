@@ -2,6 +2,7 @@ package com.example.tokki;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ public class ManagerStatisticsFormat extends AppCompatActivity {
             return insets;
         });
 
+
         findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,5 +31,7 @@ public class ManagerStatisticsFormat extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
+
+
     }
 }
