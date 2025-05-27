@@ -50,7 +50,6 @@ public class ProductView extends AppCompatActivity{
         Toast.makeText(this, "Opened OnlineProductView", Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_product_view);
-        boolean showSwitch = getIntent().getBooleanExtra("SHOW_SWITCH", false);
         storeLogo = findViewById(R.id.store_logo2);
         storeTitle = findViewById(R.id.store_tittle);
         storeCategory = findViewById(R.id.store_category_main);
