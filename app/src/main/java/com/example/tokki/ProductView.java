@@ -25,7 +25,9 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductView extends AppCompatActivity{
 
@@ -39,6 +41,8 @@ public class ProductView extends AppCompatActivity{
     private BaseAdapter productAdapter;
 
     private List<Product> products;
+
+    private Map<String,Integer> sales;
 
     //@SuppressLint("MissingInflatedId")
     @Override
@@ -80,16 +84,22 @@ public class ProductView extends AppCompatActivity{
 
             new Thread(() -> {
                 try {
-                    products = Manager.getAllProducts(store);
+                    sales = Manager.sppStore(store);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
                 runOnUiThread(() -> {
-                    if (products!=null) {
+                    if (sales!=null) {
                         Toast.makeText(ProductView.this, "Listed all products", Toast.LENGTH_SHORT).show();
-                        productAdapter = new StatisticsProductAdapter(this, products, "product_in_store");
+                        Map<String, Integer> orderedSales = new LinkedHashMap<>();
+
+
+                        orderedSales.putAll(sales);
+                        int total = orderedSales.values().stream().mapToInt(Integer::intValue).sum();
+                        orderedSales.put("TOTAL", total);
+                        productAdapter = new StatisticsProductAdapter(this, orderedSales, "product_in_store");
                         productsListView.setAdapter(productAdapter);
                         productAdapter.notifyDataSetChanged();
                     } else {

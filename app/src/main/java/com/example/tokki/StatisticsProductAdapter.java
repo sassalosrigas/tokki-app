@@ -8,36 +8,34 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.tokki.java.Manager;
-import com.example.tokki.java.Product;
-import com.example.tokki.java.Store;
-
 import java.util.List;
+import java.util.Map;
 
 public class StatisticsProductAdapter extends BaseAdapter {
     private Context context;
-    private List<Product> products;
-
+    private Map<String, Integer> productSalesMap; // Changed from List<Product>
     private String func;
 
-    public StatisticsProductAdapter(Context context, List<Product> products, String func){
+    public StatisticsProductAdapter(Context context, Map<String, Integer> productSalesMap, String func) {
         this.context = context;
-        this.products = products;
+        this.productSalesMap = productSalesMap;
         this.func = func;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProductSalesMap(Map<String, Integer> productSalesMap) {
+        this.productSalesMap = productSalesMap;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return products != null ? products.size() : 0;
+        return productSalesMap != null ? productSalesMap.size() : 0;
     }
 
     @Override
     public Object getItem(int position) {
-        return products.get(position);
+        // Convert map entry to item
+        return productSalesMap.entrySet().toArray()[position];
     }
 
     @Override
@@ -60,13 +58,14 @@ public class StatisticsProductAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Product product = products.get(position);
-        if(func.equals("product_in_store")) {
-            holder.productTitle.setText(product.getProductName());
-            holder.productPrice.setText(Integer.toString(product.getTotalSales()));
+        // Get the map entry at this position
+        Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) getItem(position);
+
+        if (func.equals("product_in_store")) {
+            holder.productTitle.setText(entry.getKey()); // Product name
+            holder.productPrice.setText(String.valueOf(entry.getValue())); // Sales count
         }
         holder.productCategory.setText("sales:");
-
 
         return convertView;
     }
@@ -76,5 +75,4 @@ public class StatisticsProductAdapter extends BaseAdapter {
         TextView productCategory;
         TextView productPrice;
     }
-
 }
