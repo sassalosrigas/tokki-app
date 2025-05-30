@@ -44,6 +44,8 @@ public class ProductView extends AppCompatActivity{
 
     private Map<String,Integer> sales;
 
+    private String function;
+
     //@SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class ProductView extends AppCompatActivity{
         storePrice = findViewById(R.id.store_price);
 
         Store store = (Store) getIntent().getSerializableExtra("STORE");
+        function = (String) getIntent().getSerializableExtra("FUNCTION");
 
         if (store != null) {
             storeTitle.setText(store.getStoreName());
@@ -83,7 +86,9 @@ public class ProductView extends AppCompatActivity{
 
             new Thread(() -> {
                 try {
-                    sales = Manager.sppStore(store);
+                    if(function.equals("SALES_PER_PRODUCT")){
+                        sales = Manager.sppStore(store);
+                    }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 } catch (ClassNotFoundException e) {
