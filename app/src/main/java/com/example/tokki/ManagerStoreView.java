@@ -104,6 +104,7 @@ public class ManagerStoreView extends AppCompatActivity{
                 Intent intent = new Intent(ManagerStoreView.this, ProductView.class);
                 intent.putExtra("STORE", clickedStore);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
             }
 
         });
