@@ -488,7 +488,7 @@ public class Manager{
         Map<String, Integer> results = (Map<String, Integer>) in.readObject();
         return results;
     }
-
+    
     public static void modifyAvailability(Scanner input){
         /*
             Allagh tou diathesimou stock enos proiontos
