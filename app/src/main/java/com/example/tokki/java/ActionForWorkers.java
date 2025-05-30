@@ -3,6 +3,7 @@ package com.example.tokki.java;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ActionForWorkers extends Thread {
     ObjectInputStream in;
@@ -168,7 +169,9 @@ public class ActionForWorkers extends Thread {
                 case "SHOP_CATEGORY_SALES":
                     handleShopCategorySales(request);
                     break;
-
+                case "GET_ALL_STORE_CATEGORIES":
+                    handleGetAllStoreCategories();
+                    break;
                 default:
                     out.writeObject("Unsupported operation");
             }
@@ -307,6 +310,12 @@ public class ActionForWorkers extends Thread {
         sendToReducer("PRODUCT_CATEGORY_SALES", id, results);
     }
 
+    private void handleGetAllStoreCategories() throws IOException {
+        Set<String> categories = worker.getAllStores().stream()
+                .map(Store::getFoodCategory)
+                .collect(Collectors.toSet());
+        out.writeObject(categories);
+    }
     private void handleShopCategorySales(WorkerFunctions request) throws IOException {
         String shopCategory = request.getName2();
         String id = request.getName();

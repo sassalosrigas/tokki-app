@@ -46,6 +46,9 @@ public class ActionsForMaster extends Thread {
                 case "REGISTER":
                     handleAddWorker();
                     break;
+                case "GET_ALL_STORE_CATEGORIES":
+                    handleGetAllStoreCategories(out);
+                    break;
                 case "ADD_STORE":
                     handleAddStore(request, out);
                     break;
@@ -383,6 +386,16 @@ public class ActionsForMaster extends Thread {
 
     }
 
+    private void handleGetAllStoreCategories(ObjectOutputStream out) throws IOException, ClassNotFoundException {
+        Set<String> categories = new HashSet<>();
+        for (Worker worker : master.getWorkers()) {
+            Object response = forwardToWorker(worker, new WorkerFunctions("GET_ALL_STORE_CATEGORIES"));
+            if (response instanceof Set) {
+                categories.addAll((Set<String>) response);
+            }
+        }
+        out.writeObject(new ArrayList<>(categories));
+    }
     private void handleProductCategorySales(WorkerFunctions request, ObjectOutputStream out)
             throws IOException, ClassNotFoundException {
         String productCategory = request.getName();

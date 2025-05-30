@@ -84,6 +84,8 @@ public class ProductView extends AppCompatActivity{
                 }
             });
 
+
+
             new Thread(() -> {
                 try {
                     if(function.equals("SALES_PER_PRODUCT")){
