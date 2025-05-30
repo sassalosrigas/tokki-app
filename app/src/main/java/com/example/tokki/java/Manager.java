@@ -508,7 +508,27 @@ public class Manager{
         socket.close();
         return categories;
     }
-    
+
+    public static List<String> getAllProductCategories() throws IOException, ClassNotFoundException {
+        Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+
+        out.writeObject(new WorkerFunctions("GET_ALL_PRODUCT_CATEGORIES"));
+        out.flush();
+
+        Object response = in.readObject();
+        List<String> categories = new ArrayList<>();
+        if (response instanceof List) {
+            categories = (List<String>) response;
+        }
+
+        out.close();
+        in.close();
+        socket.close();
+        return categories;
+    }
+
     public static void modifyAvailability(Scanner input){
         /*
             Allagh tou diathesimou stock enos proiontos

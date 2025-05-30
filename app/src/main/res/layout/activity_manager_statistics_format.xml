@@ -45,7 +45,7 @@
         app:srcCompat="@drawable/backbutton" />
 
     <ListView
-        android:id="@+id/statslist"
+        android:id="@+id/category_item"
         android:layout_width="409dp"
         android:layout_height="824dp"
         app:layout_constraintBottom_toBottomOf="parent"

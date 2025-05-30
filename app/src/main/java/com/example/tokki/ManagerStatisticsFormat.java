@@ -2,7 +2,9 @@ package com.example.tokki;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +12,20 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.tokki.java.Manager;
+
+import java.io.IOException;
+import java.util.List;
+
 public class ManagerStatisticsFormat extends AppCompatActivity {
+
+    private List<String> categories;
+
+    private ListView categoriesListView;
+
+    private BaseAdapter categoryAdapter;
+
+    String function;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +38,29 @@ public class ManagerStatisticsFormat extends AppCompatActivity {
             return insets;
         });
 
+        function = (String) getIntent().getSerializableExtra("FUNCTION");
+        categoriesListView = findViewById(R.id.category_item);
+        new Thread(() -> {
+            try {
+                if(function.equals("SALES_PER_STORE_CATEGORY")){
+                    categories = Manager.getAllStoreCategories();
+                }else{
+                    categories = Manager.getAllProductCategories();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            runOnUiThread(() -> {
+                if(categories!=null){
+                    categoryAdapter = new StringListAdapter(this, categories);
+                    categoriesListView.setAdapter(categoryAdapter);
+                    categoryAdapter.notifyDataSetChanged();
+                }
+            });
+        }).start();
 
         findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
             @Override

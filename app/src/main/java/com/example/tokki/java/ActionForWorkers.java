@@ -172,6 +172,9 @@ public class ActionForWorkers extends Thread {
                 case "GET_ALL_STORE_CATEGORIES":
                     handleGetAllStoreCategories();
                     break;
+                case "GET_ALL_PRODUCT_CATEGORIES":
+                    handleGetAllProductCategories();
+                    break;
                 default:
                     out.writeObject("Unsupported operation");
             }
@@ -322,6 +325,14 @@ public class ActionForWorkers extends Thread {
         Map<String, Integer> results = worker.mapShopCategorySales(shopCategory);
         System.out.println("Sending from worker");
         sendToReducer("SHOP_CATEGORY_SALES", id, results);
+    }
+
+    private void handleGetAllProductCategories() throws IOException {
+        Set<String> categories = worker.getAllStores().stream()
+                .flatMap(store -> store.getProducts().stream())
+                .map(Product::getProductType)
+                .collect(Collectors.toSet());
+        out.writeObject(categories);
     }
 
     private void sendToReducer(String operation, String key, Map<String, Integer> mappedResults) {

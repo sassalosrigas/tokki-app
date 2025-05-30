@@ -116,7 +116,9 @@ public class ActionsForMaster extends Thread {
                 case "SHOP_CATEGORY_SALES":
                     handleShopCategorySales(request, out);
                     break;
-
+                case "GET_ALL_PRODUCT_CATEGORIES":
+                    handleGetAllProductCategories(out);
+                    break;
                 default:
                     out.writeObject("Unsupported operation");
             }
@@ -390,6 +392,17 @@ public class ActionsForMaster extends Thread {
         Set<String> categories = new HashSet<>();
         for (Worker worker : master.getWorkers()) {
             Object response = forwardToWorker(worker, new WorkerFunctions("GET_ALL_STORE_CATEGORIES"));
+            if (response instanceof Set) {
+                categories.addAll((Set<String>) response);
+            }
+        }
+        out.writeObject(new ArrayList<>(categories));
+    }
+
+    private void handleGetAllProductCategories(ObjectOutputStream out) throws IOException, ClassNotFoundException {
+        Set<String> categories = new HashSet<>();
+        for (Worker worker : master.getWorkers()) {
+            Object response = forwardToWorker(worker, new WorkerFunctions("GET_ALL_PRODUCT_CATEGORIES"));
             if (response instanceof Set) {
                 categories.addAll((Set<String>) response);
             }
