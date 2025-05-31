@@ -416,6 +416,7 @@ public class Worker extends Thread{
         return results;
     }
 
+    /*
     public Map<String, Integer> mapShopCategorySales(String shopCategory) {
         Map<String, Integer> results = new HashMap<>();
         for (Store store : storeList) {
@@ -428,6 +429,24 @@ public class Worker extends Thread{
                     } else {
                         results.put(productName, sales);
                     }
+                }
+            }
+        }
+        return results;
+    }
+
+     */
+
+    public Map<String, Integer> mapShopCategorySales(String shopCategory) {
+        Map<String, Integer> results = new HashMap<>();
+        for (Store store : storeList) {
+            if (store.getFoodCategory().equals(shopCategory)) {
+                int totalSales = 0;
+                for (Product product : store.getProducts()) {
+                    totalSales += product.getTotalSales();
+                }
+                if (totalSales > 0) {
+                    results.put(store.getStoreName(), totalSales);
                 }
             }
         }
