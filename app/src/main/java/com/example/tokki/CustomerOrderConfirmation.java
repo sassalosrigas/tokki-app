@@ -152,8 +152,6 @@ public class CustomerOrderConfirmation extends AppCompatActivity{
                                 }
                                 @Override
                                 public void onAnimationEnd(Animator animation) {
-                                    Intent intent = new Intent(CustomerOrderConfirmation.this, CustomerMain.class);
-                                    startActivity(intent);
                                     finish();
                                 }
                                 @Override
