@@ -106,7 +106,9 @@ public class ManagerStoreView extends AppCompatActivity{
                 intent.putExtra("FUNCTION", "SALES_PER_PRODUCT");
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
-            }else if (function.equals("SALES_PER_PRODUCT_CATEGORY")){
+            }
+            /*
+            else if (function.equals("SALES_PER_PRODUCT_CATEGORY")){
                 Intent intent = new Intent(ManagerStoreView.this, ProductView.class);
                 intent.putExtra("STORE", clickedStore);
                 intent.putExtra("FUNCTION", "SALES_PER_PRODUCT_CATEGORY");
@@ -119,6 +121,8 @@ public class ManagerStoreView extends AppCompatActivity{
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
             }
+
+             */
         });
     }
 }

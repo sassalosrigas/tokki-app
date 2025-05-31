@@ -489,6 +489,26 @@ public class Manager{
         return results;
     }
 
+    public static Map<String,Integer> sppCategory(String prodCategory) throws IOException, ClassNotFoundException {
+        Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+        out.writeObject(new WorkerFunctions("PRODUCT_CATEGORY_SALES", prodCategory));
+        out.flush();
+        Map<String, Integer> results = (Map<String, Integer>) in.readObject();
+        return results;
+    }
+
+    public static Map<String,Integer> spsCategory(String shopCategory) throws IOException, ClassNotFoundException {
+        Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+        out.writeObject(new WorkerFunctions("SHOP_CATEGORY_SALES", shopCategory));
+        out.flush();
+        Map<String, Integer> results = (Map<String, Integer>) in.readObject();
+        return results;
+    }
+
     public static List<String> getAllStoreCategories() throws IOException, ClassNotFoundException {
         Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());

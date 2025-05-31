@@ -15,6 +15,10 @@ public class StringListAdapter extends BaseAdapter {
     private final List<String> items;
     private final LayoutInflater inflater;
 
+    public interface OnItemClickListener {
+        void onItemClick(String item, int position);
+    }
+
     public StringListAdapter(Context context, List<String> items) {
         this.context = context;
         this.items = items;
@@ -33,7 +37,7 @@ public class StringListAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position; // Or a stable ID if available
+        return position;
     }
 
     @Override
