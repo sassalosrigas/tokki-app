@@ -51,6 +51,7 @@ public class ProductView extends AppCompatActivity{
         Toast.makeText(this, "Opened ProductView", Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_product_view);
+        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         storeLogo = findViewById(R.id.store_logo2);
         storeTitle = findViewById(R.id.store_tittle);
         storeCategory = findViewById(R.id.store_category_main);
