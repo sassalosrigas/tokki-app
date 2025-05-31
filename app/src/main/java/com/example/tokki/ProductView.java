@@ -122,8 +122,6 @@ public class ProductView extends AppCompatActivity{
             productsListView = findViewById(R.id.products_list_view);
 
         } else {
-            //Toast.makeText(this, "Store data not available", Toast.LENGTH_SHORT).show();
-            //finish();
             findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

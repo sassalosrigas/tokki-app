@@ -20,9 +20,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class ManagerMain extends AppCompatActivity {
-    View popupView;
-    AlertDialog dialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -22,9 +22,7 @@ public class Reducer extends Thread {
 
     @Override
     public void run() {
-        /*
-        ekkinhsh reducer server
-         */
+        // ekkinhsh reducer server
         try {
             serverSocket = new ServerSocket(port);
             System.out.println("Reducer started on port " + port);
@@ -39,27 +37,12 @@ public class Reducer extends Thread {
         }
     }
 
-    public void shutdown() {
-        running = false;
-        try {
-            if (serverSocket != null) {
-                serverSocket.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public synchronized void addPartialResult(String requestId, Map<String, Integer> mappedResults) throws IOException {
-        /*
-        prosthiki meros apo results enos request sto swsto id
-         */
+        // prosthiki meros apo results enos request sto swsto id
         pendingReductions.computeIfAbsent(requestId, k -> new ArrayList<>()).add(mappedResults);
 
         if (pendingReductions.get(requestId).size() == master.getWorkers().size()) {
-            /*
-            efoson elabe apanthsh apo kathe worker kane to teliko reduce
-             */
+            // efoson elabe apanthsh apo kathe worker kane to teliko reduce
             Map<String, Integer> finalResult = reduceAllResults(pendingReductions.get(requestId));
             pendingReductions.remove(requestId);
             sendToMaster(requestId, finalResult);
@@ -75,7 +58,6 @@ public class Reducer extends Thread {
     }
 
     private void sendToMaster(String requestId, Map<String, Integer> results) throws IOException {
-        //master.handleReducedResult(requestId, results);
         Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
@@ -100,15 +82,12 @@ public class Reducer extends Thread {
     private List<Store> reduceAllFilterResults(List<List<Store>> partialResults) {
         return partialResults.stream()
                 .flatMap(List::stream)
-                .distinct() // Assuming Store has proper equals() implementation
+                .distinct()
                 .collect(Collectors.toList());
     }
 
     private void sendToMaster(String requestId, List<Store> results) throws IOException {
-        /*
-        stelnei ston master ta reduced apotelesmata
-         */
-        //master.handleReducedResult(requestId, results);
+        // stelnei ston master ta reduced apotelesmata
         Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
@@ -144,16 +123,10 @@ public class Reducer extends Thread {
                 if(operation.equals("FILTER_STORES")) {
                     List<Store> mappedResults = (List<Store>) in.readObject();
                     reducer.addPartialResult(requestId, mappedResults);
-                    //out.writeObject(mappedResults);
                 }else{
                     Map<String, Integer> mappedResults = (Map<String, Integer>) in.readObject();
                     reducer.addPartialResult(requestId, mappedResults);
-                    //out.writeObject(mappedResults);
                 }
-
-
-                //out.writeObject(Collections.emptyMap());
-                //out.flush();
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             } finally {

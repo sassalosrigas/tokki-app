@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.RatingBar;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -19,8 +18,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.tokki.R;
-import com.example.tokki.StoreAdapter;
 import com.example.tokki.java.Customer;
 import com.example.tokki.java.Store;
 
@@ -50,7 +47,6 @@ public class CustomerMain extends AppCompatActivity {
         listView.setAdapter(storeAdapter);
 
         Customer customer = new Customer("rigas", "123", 37.986633, 23.734900);
-        //Customer customer = (Customer) getIntent().getSerializableExtra("CUSTOMER");
         new Thread(() -> {
             List<Store> stores = customer.showNearbyStores();
             runOnUiThread(() -> {
@@ -138,7 +134,6 @@ public class CustomerMain extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-                //Customer customer = new Customer("rigas", "123", 37.986633, 23.734900);
                 applyButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -193,7 +188,6 @@ public class CustomerMain extends AppCompatActivity {
 
         });
 
-
         Button clearFiltersBtn = findViewById(R.id.button_clear);
 
         clearFiltersBtn.setOnClickListener(new View.OnClickListener() {
@@ -213,7 +207,6 @@ public class CustomerMain extends AppCompatActivity {
                 }).start();
             }
         });
-
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Store clickedStore = nearbyStores.get(position);

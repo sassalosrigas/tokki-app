@@ -30,10 +30,6 @@ public class AddProductActivity extends AppCompatActivity {
     private TextView storeRating;
     private TextView storePrice;
     private CardView storeButton;
-
-    private ListView productsListView;
-    private ProductAdapter productAdapter;
-
     private List<Integer> quantities;
 
     @SuppressLint("MissingInflatedId")

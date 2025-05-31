@@ -85,12 +85,6 @@ public class CustomerStoreView extends AppCompatActivity implements ProductAdapt
                 }
             }).start();
 
-        /*
-        productsListView.setOnItemClickListener((parent, view, position, id) -> {
-            Product selectedProduct = (Product) parent.getItemAtPosition(position);
-        });
-
-         */
             findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

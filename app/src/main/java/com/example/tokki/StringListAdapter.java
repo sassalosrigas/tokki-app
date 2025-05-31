@@ -15,10 +15,6 @@ public class StringListAdapter extends BaseAdapter {
     private final List<String> items;
     private final LayoutInflater inflater;
 
-    public interface OnItemClickListener {
-        void onItemClick(String item, int position);
-    }
-
     public StringListAdapter(Context context, List<String> items) {
         this.context = context;
         this.items = items;

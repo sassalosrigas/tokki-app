@@ -36,7 +36,6 @@ public class OfflineProductView extends AppCompatActivity {
     private ManagerProductAdapter productAdapter;
 
     private List<Product> products;
-    //@SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Toast.makeText(this, "Opened OfflineProductView", Toast.LENGTH_SHORT).show();
@@ -81,10 +80,9 @@ public class OfflineProductView extends AppCompatActivity {
                     runOnUiThread(() -> {
                         if (products != null && !products.isEmpty()) {
                             Toast.makeText(OfflineProductView.this, "Listed all offline products", Toast.LENGTH_SHORT).show();
-                            // Initialize adapter here, after data is loaded
                             productAdapter = new ManagerProductAdapter(OfflineProductView.this, products);
                             productsListView.setAdapter(productAdapter);
-                            productAdapter.notifyDataSetChanged(); // Notify adapter of data change
+                            productAdapter.notifyDataSetChanged();
                         } else {
                             Toast.makeText(OfflineProductView.this, "No offline products exist", Toast.LENGTH_SHORT).show();
                         }

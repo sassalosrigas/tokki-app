@@ -40,7 +40,6 @@ public class OnlineProductView extends AppCompatActivity implements ManagerProdu
 
     private List<Product> products;
 
-    //@SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Toast.makeText(this, "Opened OnlineProductView", Toast.LENGTH_SHORT).show();

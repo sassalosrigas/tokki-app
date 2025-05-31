@@ -83,7 +83,7 @@ public class ManagerProductRemovalAdapter extends BaseAdapter {
         });
 
         holder.availabilitySwitch.setOnCheckedChangeListener(null);
-        holder.availabilitySwitch.setChecked(true); // Default state
+        holder.availabilitySwitch.setChecked(true);
 
 
         holder.availabilitySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
