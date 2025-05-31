@@ -42,7 +42,6 @@ public class OnlineProductView extends AppCompatActivity implements ManagerProdu
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Toast.makeText(this, "Opened OnlineProductView", Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_product_view);
         boolean showSwitch = getIntent().getBooleanExtra("SHOW_SWITCH", false);
@@ -87,14 +86,12 @@ public class OnlineProductView extends AppCompatActivity implements ManagerProdu
                 }
                 runOnUiThread(() -> {
                     if (products!=null) {
-                        Toast.makeText(OnlineProductView.this, "Listed all online products", Toast.LENGTH_SHORT).show();
                         if (showSwitch) {
                             productAdapter = new ManagerProductRemovalAdapter(this, products,this);
                         }else{
                             productAdapter = new ManagerProductAdapter(this,products);
                             productsListView.setOnItemClickListener((parent, view, position, id) -> {
                                 Product selectedProduct = (Product) parent.getItemAtPosition(position);
-                                Toast.makeText(this, "Clickara", Toast.LENGTH_SHORT).show();
                                 LayoutInflater inflater = getLayoutInflater();
                                 View popupView = inflater.inflate(R.layout.popup_enteramount, null);
 
@@ -113,11 +110,6 @@ public class OnlineProductView extends AppCompatActivity implements ManagerProdu
                                     new Thread(() -> {
                                         try {
                                             boolean changed = Manager.modifyAvailability(store, selectedProduct, Integer.parseInt(input.getText().toString()));
-                                            runOnUiThread(() -> {
-                                                if (changed) {
-                                                    Toast.makeText(this, "new amount set", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
                                         } catch (IOException e) {
                                             throw new RuntimeException(e);
                                         } catch (ClassNotFoundException e) {
@@ -148,7 +140,6 @@ public class OnlineProductView extends AppCompatActivity implements ManagerProdu
 
     @Override
     public void onSwitchFlipped(int position) throws IOException, ClassNotFoundException {
-        Toast.makeText(OnlineProductView.this, "FLIPPED", Toast.LENGTH_SHORT).show();
         Product product = (Product) productAdapter.getItem(position);
         Store store = (Store) getIntent().getSerializableExtra("STORE");
         new Thread(() -> {

@@ -210,11 +210,6 @@ public class CustomerMain extends AppCompatActivity {
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Store clickedStore = nearbyStores.get(position);
-
-            Toast.makeText(CustomerMain.this,
-                    "Selected: " + clickedStore.getStoreName(),
-                    Toast.LENGTH_SHORT).show();
-
             Intent intent = new Intent(CustomerMain.this, CustomerStoreView.class);
             intent.putExtra("STORE", clickedStore);
             startActivity(intent);

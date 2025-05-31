@@ -35,7 +35,6 @@ public class ManagerMain extends AppCompatActivity {
         findViewById(R.id.addstore_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ManagerMain.this, "Entering Add Store", Toast.LENGTH_SHORT).show();
                 LayoutInflater inflater = getLayoutInflater();
                 View popupView = inflater.inflate(R.layout.popup_add_store, null);
 
@@ -62,7 +61,6 @@ public class ManagerMain extends AppCompatActivity {
                             }
                         });
                     }).start();
-                    Toast.makeText(ManagerMain.this, "Store added: " + storeName, Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 });
                 cancelBtn.setOnClickListener(bv -> dialog.dismiss());
@@ -80,7 +78,6 @@ public class ManagerMain extends AppCompatActivity {
         findViewById(R.id.addproduct_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ManagerMain.this, "Entering Add Product", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ManagerMain.this, ManagerStoreView.class);
                 intent.putExtra("FUNCTION", "ADD_PRODUCT");
                 startActivity(intent);
@@ -91,7 +88,6 @@ public class ManagerMain extends AppCompatActivity {
         findViewById(R.id.removeproduct_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ManagerMain.this, "Entering Remove Product", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ManagerMain.this, ManagerStoreView.class);
                 intent.putExtra("FUNCTION", "REMOVE_PRODUCT");
                 startActivity(intent);
@@ -102,7 +98,6 @@ public class ManagerMain extends AppCompatActivity {
         findViewById(R.id.modifystock_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ManagerMain.this, "Entering Modify Stock", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ManagerMain.this, ManagerStoreView.class);
                 intent.putExtra("FUNCTION","MODIFY_STOCK");
                 startActivity(intent);
@@ -113,7 +108,6 @@ public class ManagerMain extends AppCompatActivity {
         findViewById(R.id.stats_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ManagerMain.this, "Entering Statistics", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ManagerMain.this, StatisticsPage.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

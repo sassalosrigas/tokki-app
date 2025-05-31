@@ -3,8 +3,6 @@ package com.example.tokki;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -35,7 +33,6 @@ public class StatisticsPage extends AppCompatActivity {
         findViewById(R.id.salesperprod).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(StatisticsPage.this, "Entering Sales per product in a store", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(StatisticsPage.this, ManagerStoreView.class);
                 intent.putExtra("FUNCTION", "SALES_PER_PRODUCT");
                 startActivity(intent);

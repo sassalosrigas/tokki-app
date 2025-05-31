@@ -48,7 +48,6 @@ public class ProductView extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Toast.makeText(this, "Opened ProductView", Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_product_view);
         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
@@ -103,7 +102,6 @@ public class ProductView extends AppCompatActivity{
                 }
                 runOnUiThread(() -> {
                     if (sales != null) {
-                        Toast.makeText(ProductView.this, "Listed all products", Toast.LENGTH_SHORT).show();
                         Map<String, Integer> orderedSales = new LinkedHashMap<>();
 
 
@@ -156,7 +154,6 @@ public class ProductView extends AppCompatActivity{
                 }
                 runOnUiThread(() -> {
                     if (sales != null) {
-                        Toast.makeText(ProductView.this, "Listed all products", Toast.LENGTH_SHORT).show();
                         Map<String, Integer> orderedSales = new LinkedHashMap<>();
 
 
