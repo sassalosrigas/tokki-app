@@ -14,7 +14,7 @@ public class Master {
 
     public Master() {
         this.config = new Properties();
-        Reducer reducer = new Reducer(9090, this); // Use an appropriate port
+        Reducer reducer = new Reducer(9090, this);
         reducer.start();
         //this.openServer();
         /*
@@ -58,15 +58,17 @@ public class Master {
         } else {
             System.out.println("Reading configuration from file");
             master = new Master();
-            //registerWorker();
         }
-        Reducer reducer = new Reducer(9090, master); // Use an appropriate port
+        Reducer reducer = new Reducer(9090, master); // Ekkinhsh reducer server
         reducer.start();
         master.openServer();
     }
 
 
     public void openServer() {
+        /*
+        ekkinhsh main thread tou master server
+         */
         new Thread(()-> {
             try {
                 System.out.println("Opening server...");
@@ -89,12 +91,18 @@ public class Master {
     }
 
     public void storeClientConnection(String requestId, ObjectOutputStream out) {
+        /*
+        apothikeush connection gia map/reduce diadikasies wste na sindeetai me reducer
+         */
         synchronized (clientConnections) {
             clientConnections.put(requestId, out);
         }
     }
 
     public void handleReducedResult(String requestId, Object results) {
+        /*
+        xeirismos reduced result
+         */
         synchronized(clientConnections) {
             ObjectOutputStream out = clientConnections.remove(requestId);
             if (out != null) {
@@ -110,6 +118,10 @@ public class Master {
 
 
     public static synchronized void rebalanceStores() {
+        /*
+        anadiataksh twn stores anamesa stouw workers kathe fora pou eggrafetai enas
+        kainourios wste na douleuei sesta to hashing
+         */
         List<Store> allStores = new ArrayList<>();
         for (Worker worker : workers) {
             allStores.addAll(worker.getAllStores());
@@ -137,6 +149,9 @@ public class Master {
     }
 
     public static void registerWorker() throws IOException {
+        /*
+        Eggrafh kainourgiou worker ston master
+         */
         Socket masterSocket = new Socket("127.0.0.1", 8080);  // Connect to Master
         ObjectOutputStream out = new ObjectOutputStream(masterSocket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(masterSocket.getInputStream());

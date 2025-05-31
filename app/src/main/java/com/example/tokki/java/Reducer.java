@@ -22,10 +22,12 @@ public class Reducer extends Thread {
 
     @Override
     public void run() {
+        /*
+        ekkinhsh reducer server
+         */
         try {
             serverSocket = new ServerSocket(port);
             System.out.println("Reducer started on port " + port);
-
             while (running) {
                 Socket workerSocket = serverSocket.accept();
                 new ReducerHandler(workerSocket, master, this).start();
@@ -48,10 +50,16 @@ public class Reducer extends Thread {
         }
     }
 
-    public synchronized void addPartialResult(String requestId, Map<String, Integer> mappedResults) {
+    public synchronized void addPartialResult(String requestId, Map<String, Integer> mappedResults) throws IOException {
+        /*
+        prosthiki meros apo results enos request sto swsto id
+         */
         pendingReductions.computeIfAbsent(requestId, k -> new ArrayList<>()).add(mappedResults);
 
         if (pendingReductions.get(requestId).size() == master.getWorkers().size()) {
+            /*
+            efoson elabe apanthsh apo kathe worker kane to teliko reduce
+             */
             Map<String, Integer> finalResult = reduceAllResults(pendingReductions.get(requestId));
             pendingReductions.remove(requestId);
             sendToMaster(requestId, finalResult);
@@ -66,16 +74,25 @@ public class Reducer extends Thread {
         return finalResult;
     }
 
-    private void sendToMaster(String requestId, Map<String, Integer> results) {
-        master.handleReducedResult(requestId, results);
+    private void sendToMaster(String requestId, Map<String, Integer> results) throws IOException {
+        //master.handleReducedResult(requestId, results);
+        Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+        out.writeObject(new WorkerFunctions("REDUCE_MAP_RESULTS", requestId, results));
+        out.flush();
     }
 
-    public synchronized void addPartialResult(String requestId, List<Store> mappedResults) {
-        pendingRed.computeIfAbsent(requestId, k -> new ArrayList<>()).add(mappedResults);
+    public synchronized void addPartialResult(String requestId, List<Store> mappedResults) throws IOException {
+        synchronized (pendingRed){
+            pendingRed.computeIfAbsent(requestId, k -> new ArrayList<>()).add(mappedResults);
+        }
 
         if (pendingRed.get(requestId).size() == master.getWorkers().size()) {
             List<Store> finalResult = reduceAllFilterResults(pendingRed.get(requestId));
-            pendingRed.remove(requestId);
+            synchronized (pendingRed){
+                pendingRed.remove(requestId);
+            }
             sendToMaster(requestId, finalResult);
         }
     }
@@ -87,8 +104,16 @@ public class Reducer extends Thread {
                 .collect(Collectors.toList());
     }
 
-    private void sendToMaster(String requestId, List<Store> results) {
-        master.handleReducedResult(requestId, results);
+    private void sendToMaster(String requestId, List<Store> results) throws IOException {
+        /*
+        stelnei ston master ta reduced apotelesmata
+         */
+        //master.handleReducedResult(requestId, results);
+        Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8080);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+        out.writeObject(new WorkerFunctions("REDUCE_FILTER_RESULTS", requestId, results));
+        out.flush();
     }
 
     private static class ReducerHandler extends Thread {

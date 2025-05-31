@@ -119,6 +119,12 @@ public class ActionsForMaster extends Thread {
                 case "GET_ALL_PRODUCT_CATEGORIES":
                     handleGetAllProductCategories(out);
                     break;
+                case "REDUCE_FILTER_RESULTS":
+                    handleReducedFilterResults(request,out);
+                    break;
+                case "REDUCE_MAP_RESULTS":
+                    handleReducedMapResults(request,out);
+                    break;
                 default:
                     out.writeObject("Unsupported operation");
             }
@@ -432,6 +438,18 @@ public class ActionsForMaster extends Thread {
             forwardToWorker(worker,
                     new WorkerFunctions("SHOP_CATEGORY_SALES", requestId, shopCategory));
         }
+    }
+
+    private void handleReducedFilterResults(WorkerFunctions request, ObjectOutputStream out){
+        String id = request.getName();
+        List<Store> stores = (List<Store>) request.getObject();
+        master.handleReducedResult(id, stores);
+    }
+
+    private void handleReducedMapResults(WorkerFunctions request, ObjectOutputStream out){
+        String id = request.getName();
+        Map<String,Integer> stores = (Map<String,Integer>) request.getObject();
+        master.handleReducedResult(id, stores);
     }
 
     private Object forwardToWorker(Worker worker, WorkerFunctions request)
