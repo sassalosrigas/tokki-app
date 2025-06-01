@@ -8,6 +8,20 @@
     android:background="@color/jet"
     tools:context=".CustomerOrderConfirmation">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/anim"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/order_list_view"
+        app:layout_constraintEnd_toEndOf="@+id/order_list_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/order_overview"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false"
+        app:lottie_speed="1"
+        tools:visibility="visible" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/clear_cart_button"
         android:layout_width="0dp"
@@ -131,18 +145,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/order_overview">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/anim"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_marginStart="131dp"
-            android:layout_marginTop="235dp"
-            android:layout_marginEnd="135dp"
-            android:visibility="visible"
-            app:lottie_autoPlay="false"
-            app:lottie_loop="false"
-            app:lottie_speed="1"
-            tools:visibility="visible" />
     </ListView>
 
     <ImageView
