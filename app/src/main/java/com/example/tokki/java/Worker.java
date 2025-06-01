@@ -478,6 +478,7 @@ public class Worker extends Thread{
         return distance <= 5.0;
     }
 
+    /*
     public boolean shouldIncludeStore(Worker worker, List<Worker> workers, String storeName) {
         List<Integer> indices = getWorkerIndicesForStore(storeName, workers.size());
         Worker primary = workers.get(indices.get(0));
@@ -485,5 +486,7 @@ public class Worker extends Thread{
         return worker.getWorkerId() == primary.getWorkerId() ||
                 (!primary.isAlive() && worker.getWorkerId() == indices.get(1));
     }
+
+     */
 
 }

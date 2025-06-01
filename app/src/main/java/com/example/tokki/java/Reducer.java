@@ -54,14 +54,18 @@ public class Reducer extends Thread {
         /*
         prosthiki meros apo results enos request sto swsto id
          */
-        pendingReductions.computeIfAbsent(requestId, k -> new ArrayList<>()).add(mappedResults);
+        synchronized (pendingReductions){
+            pendingReductions.computeIfAbsent(requestId, k -> new ArrayList<>()).add(mappedResults);
+        }
 
         if (pendingReductions.get(requestId).size() == master.getWorkers().size()) {
             /*
             efoson elabe apanthsh apo kathe worker kane to teliko reduce
              */
             Map<String, Integer> finalResult = reduceAllResults(pendingReductions.get(requestId));
-            pendingReductions.remove(requestId);
+            synchronized (pendingReductions){
+                pendingReductions.remove(requestId);
+            }
             sendToMaster(requestId, finalResult);
         }
     }
@@ -117,6 +121,9 @@ public class Reducer extends Thread {
     }
 
     private static class ReducerHandler extends Thread {
+        /*
+        boithitikh klash gia to reduce
+         */
         private final Socket socket;
         private final Master master;
         private final Reducer reducer;

@@ -39,6 +39,9 @@ public class ActionsForMaster extends Thread {
     }
 
     public void processRequest(WorkerFunctions request, ObjectOutputStream out) throws IOException {
+        /*
+        lipsi request apo master server kai diaxeirish se master/proothisi se workers
+         */
         String operation = request.getOperation();
 
         try {
@@ -133,6 +136,9 @@ public class ActionsForMaster extends Thread {
         }
     }
 
+    /*
+    Methodos gia kathe periptwsh request apo thn efarmogh
+     */
     private void handleAddWorker(){
         Worker worker = new Worker(8080 + (++nums));
         Master.getWorkers().add(worker);
@@ -144,6 +150,7 @@ public class ActionsForMaster extends Thread {
             throws IOException, ClassNotFoundException {
         Store store = (Store) request.getObject();
         List<Integer> assign = Master.getWorkerIndicesForStore(store.getStoreName());
+        //prosthiki se primary kai se replica worker gia na mhn xathei se periptosi failure
         Worker primaryWorker = master.getWorkers().get(assign.get(0));
         Worker replicaWorker = master.getWorkers().get(assign.get(1));
 
@@ -213,6 +220,7 @@ public class ActionsForMaster extends Thread {
         Object response = forwardToWorker(primaryWorker, request);
         out.writeObject(response);
 
+        //se methodous opou ginontai modifications ginontai sync ola ta pedia tou main me to replica
         if (response instanceof String && ((String) response).contains("added")) {
             forwardToWorker(replicaWorker,
                     new WorkerFunctions("SYNC_STORE", primaryWorker.getStore(store.getStoreName())));
@@ -453,6 +461,9 @@ public class ActionsForMaster extends Thread {
     }
 
     private Object forwardToWorker(Worker worker, WorkerFunctions request)
+            /*
+            proothisi aithmatos se worker
+             */
             throws IOException, ClassNotFoundException {
         try (Socket workerSocket = new Socket("127.0.0.1", worker.getPort());
              ObjectOutputStream workerOut = new ObjectOutputStream(workerSocket.getOutputStream());
@@ -465,6 +476,9 @@ public class ActionsForMaster extends Thread {
     }
 
     private String generateRequestId() {
+        /*
+        ftiaxnei request id gia leitourgies pou xrhsimopoioun reducer
+         */
         return UUID.randomUUID().toString();
     }
 

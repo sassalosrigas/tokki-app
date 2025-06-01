@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Order implements Serializable {
+    /*
+    boithitiki klash gia thn pragmatopoihsh paraggelias, krataei to kalathi
+     */
     private Store store;
     private List<Product> products;
     private List<Integer> quantities;

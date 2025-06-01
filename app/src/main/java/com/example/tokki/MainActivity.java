@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        //kodikas gia na treksei topika sto emulator sthn idia siskeuh gia testing
         Master master = new Master();
         master.openServer();
         try {
@@ -57,8 +58,10 @@ public class MainActivity extends AppCompatActivity {
         }
         new Thread(() -> {
             Socket masterSocket = null;  // Connect to Master
-            /*try {
-                masterSocket = new Socket("10.0.2.2", 8080);
+            /*
+            kodikas gia na sindethei se ena server pou trexei eksoterika/se allh siskeuh
+            try {
+                masterSocket = new Socket("127.0.0.1", 8080);
                 ObjectOutputStream out = null;
                 out = new ObjectOutputStream(masterSocket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(masterSocket.getInputStream());

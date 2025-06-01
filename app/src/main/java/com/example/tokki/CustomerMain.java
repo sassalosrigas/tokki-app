@@ -29,7 +29,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CustomerMain extends AppCompatActivity {
-
+    /*
+    Arxikh selida customer
+     */
     private ListView listView;
     private StoreAdapter storeAdapter;
     private List<Store> nearbyStores = new ArrayList<>();
@@ -50,11 +52,11 @@ public class CustomerMain extends AppCompatActivity {
         listView.setAdapter(storeAdapter);
 
         Customer customer = new Customer("rigas", "123", 37.986633, 23.734900);
-        //Customer customer = (Customer) getIntent().getSerializableExtra("CUSTOMER");
         new Thread(() -> {
             List<Store> stores = customer.showNearbyStores();
             runOnUiThread(() -> {
                 if (stores != null && !stores.isEmpty()) {
+                    //deixnei automata ta kontina stores
                     nearbyStores.clear();
                     nearbyStores.addAll(stores);
                     storeAdapter.notifyDataSetChanged();

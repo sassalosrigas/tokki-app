@@ -61,7 +61,7 @@ public class ProductView extends AppCompatActivity{
         Store store = (Store) getIntent().getSerializableExtra("STORE");
         function = (String) getIntent().getSerializableExtra("FUNCTION");
 
-        if (store != null) {
+        if (store != null) { //periptosh statistikwn enos katasthmatos
             storeTitle.setText(store.getStoreName());
             storeCategory.setText(store.getFoodCategory());
             storeRating.setText(String.format("★ %.1f", store.getStars()));
@@ -121,7 +121,7 @@ public class ProductView extends AppCompatActivity{
             }).start();
             productsListView = findViewById(R.id.products_list_view);
 
-        } else {
+        } else { //periptosi statistikwn kathgorias
             //Toast.makeText(this, "Store data not available", Toast.LENGTH_SHORT).show();
             //finish();
             findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {

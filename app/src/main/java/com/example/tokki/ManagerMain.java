@@ -20,6 +20,9 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class ManagerMain extends AppCompatActivity {
+    /*
+    Arxikh selida manager
+     */
     View popupView;
     AlertDialog dialog;
 
