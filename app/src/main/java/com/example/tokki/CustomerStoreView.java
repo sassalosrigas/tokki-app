@@ -70,7 +70,6 @@ public class CustomerStoreView extends AppCompatActivity implements ProductAdapt
                     products = Manager.getOnlineProducts(store);
                     runOnUiThread(() -> {
                         if(!products.isEmpty()){
-                            Toast.makeText(this, "Fetched all available products", Toast.LENGTH_SHORT).show();
                             productsListView = findViewById(R.id.products_list_view);
                             productAdapter = new ProductAdapter(this, products, this);
                             productsListView.setAdapter(productAdapter);
@@ -85,12 +84,6 @@ public class CustomerStoreView extends AppCompatActivity implements ProductAdapt
                 }
             }).start();
 
-        /*
-        productsListView.setOnItemClickListener((parent, view, position, id) -> {
-            Product selectedProduct = (Product) parent.getItemAtPosition(position);
-        });
-
-         */
             findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -137,9 +130,5 @@ public class CustomerStoreView extends AppCompatActivity implements ProductAdapt
     public void onQuantityChanged(int position, int newQuantity) {
         Product product = (Product) productAdapter.getItem(position);
         quantities.set(position, newQuantity);
-        Toast.makeText(this,
-                "Quantity changed for " + product.getProductName() + ": " + newQuantity,
-                Toast.LENGTH_SHORT).show();
-
     }
 }

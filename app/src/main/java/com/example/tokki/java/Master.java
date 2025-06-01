@@ -38,10 +38,6 @@ public class Master {
         return workers;
     }
 
-    public int getPortNums(){
-        return portNums;
-    }
-
     public static void main(String[] args) {
         Master master;
         if (args.length > 0) {
@@ -147,19 +143,6 @@ public class Master {
 
         System.out.println("Stores rebalanced across " + numWorkers + " workers");
     }
-
-    public static void registerWorker() throws IOException {
-        /*
-        Eggrafh kainourgiou worker ston master
-         */
-        Socket masterSocket = new Socket("127.0.0.1", 8080);  // Connect to Master
-        ObjectOutputStream out = new ObjectOutputStream(masterSocket.getOutputStream());
-        ObjectInputStream in = new ObjectInputStream(masterSocket.getInputStream());
-        out.writeObject(new WorkerFunctions("REGISTER"));
-        rebalanceStores();
-        out.flush();
-    }
-
 
     public static int hashToNode(String storeName, int numOfNodes) {
         return Math.abs(storeName.hashCode()) % numOfNodes;

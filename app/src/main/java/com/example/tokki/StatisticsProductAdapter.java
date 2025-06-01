@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class StatisticsProductAdapter extends BaseAdapter {
     private Context context;
-    private Map<String, Integer> productSalesMap; // Changed from List<Product>
+    private Map<String, Integer> productSalesMap;
     private String func;
 
     public StatisticsProductAdapter(Context context, Map<String, Integer> productSalesMap, String func) {
@@ -58,12 +58,11 @@ public class StatisticsProductAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        // Get the map entry at this position
         Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) getItem(position);
 
         if (func.equals("product_in_store")) {
-            holder.productTitle.setText(entry.getKey()); // Product name
-            holder.productPrice.setText(String.valueOf(entry.getValue())); // Sales count
+            holder.productTitle.setText(entry.getKey());
+            holder.productPrice.setText(String.valueOf(entry.getValue()));
         }
         holder.productCategory.setText("sales:");
 

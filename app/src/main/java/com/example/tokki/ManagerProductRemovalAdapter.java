@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.example.tokki.java.Product;
@@ -79,16 +77,14 @@ public class ManagerProductRemovalAdapter extends BaseAdapter {
         holder.availabilitySwitch.setOnClickListener(v -> {
             SwitchCompat sw = (SwitchCompat) v;
             sw.setEnabled(false);
-            Toast.makeText(context, "Switch toggled and now locked.", Toast.LENGTH_SHORT).show();
         });
 
         holder.availabilitySwitch.setOnCheckedChangeListener(null);
-        holder.availabilitySwitch.setChecked(true); // Default state
+        holder.availabilitySwitch.setChecked(true);
 
 
         holder.availabilitySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (!isChecked) {
-                Toast.makeText(context, "REMOVED", Toast.LENGTH_SHORT).show();
                 if(productRemoveListener!=null){
                     try {
                         productRemoveListener.onSwitchFlipped(position);

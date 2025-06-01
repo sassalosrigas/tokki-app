@@ -1,7 +1,4 @@
 package com.example.tokki;
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import com.example.tokki.java.Manager;
 import com.example.tokki.java.Product;
@@ -36,10 +32,8 @@ public class OfflineProductView extends AppCompatActivity {
     private ManagerProductAdapter productAdapter;
 
     private List<Product> products;
-    //@SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Toast.makeText(this, "Opened OfflineProductView", Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_product_view);
 
@@ -80,11 +74,9 @@ public class OfflineProductView extends AppCompatActivity {
                     Log.d("RETURNED", "Size" + products.size());
                     runOnUiThread(() -> {
                         if (products != null && !products.isEmpty()) {
-                            Toast.makeText(OfflineProductView.this, "Listed all offline products", Toast.LENGTH_SHORT).show();
-                            // Initialize adapter here, after data is loaded
                             productAdapter = new ManagerProductAdapter(OfflineProductView.this, products);
                             productsListView.setAdapter(productAdapter);
-                            productAdapter.notifyDataSetChanged(); // Notify adapter of data change
+                            productAdapter.notifyDataSetChanged();
                         } else {
                             Toast.makeText(OfflineProductView.this, "No offline products exist", Toast.LENGTH_SHORT).show();
                         }
@@ -101,7 +93,6 @@ public class OfflineProductView extends AppCompatActivity {
 
             productsListView.setOnItemClickListener((parent, view, position, id) -> {
                 Product selectedProduct = (Product) parent.getItemAtPosition(position);
-                Toast.makeText(this, "Clickara", Toast.LENGTH_SHORT).show();
                 LayoutInflater inflater = getLayoutInflater();
                 View popupView = inflater.inflate(R.layout.popup_enteramount, null);
 
@@ -126,7 +117,6 @@ public class OfflineProductView extends AppCompatActivity {
                             throw new RuntimeException(e);
                         }
                     }).start();
-                    Toast.makeText(OfflineProductView.this, "new amount set", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 });
                 cancelBtn.setOnClickListener(bv -> dialog.dismiss());

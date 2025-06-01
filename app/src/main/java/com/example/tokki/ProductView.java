@@ -48,7 +48,6 @@ public class ProductView extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Toast.makeText(this, "Opened ProductView", Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_product_view);
         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
@@ -61,7 +60,7 @@ public class ProductView extends AppCompatActivity{
         Store store = (Store) getIntent().getSerializableExtra("STORE");
         function = (String) getIntent().getSerializableExtra("FUNCTION");
 
-        if (store != null) { //periptosh statistikwn enos katasthmatos
+        if (store != null) {
             storeTitle.setText(store.getStoreName());
             storeCategory.setText(store.getFoodCategory());
             storeRating.setText(String.format("★ %.1f", store.getStars()));
@@ -103,7 +102,6 @@ public class ProductView extends AppCompatActivity{
                 }
                 runOnUiThread(() -> {
                     if (sales != null) {
-                        Toast.makeText(ProductView.this, "Listed all products", Toast.LENGTH_SHORT).show();
                         Map<String, Integer> orderedSales = new LinkedHashMap<>();
 
 
@@ -121,9 +119,7 @@ public class ProductView extends AppCompatActivity{
             }).start();
             productsListView = findViewById(R.id.products_list_view);
 
-        } else { //periptosi statistikwn kathgorias
-            //Toast.makeText(this, "Store data not available", Toast.LENGTH_SHORT).show();
-            //finish();
+        } else {
             findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -158,7 +154,6 @@ public class ProductView extends AppCompatActivity{
                 }
                 runOnUiThread(() -> {
                     if (sales != null) {
-                        Toast.makeText(ProductView.this, "Listed all products", Toast.LENGTH_SHORT).show();
                         Map<String, Integer> orderedSales = new LinkedHashMap<>();
 
 

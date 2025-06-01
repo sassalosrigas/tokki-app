@@ -54,7 +54,7 @@ public class CustomerOrderConfirmation extends AppCompatActivity{
 
         TextView totalText = findViewById(R.id.total);
 
-        double totalAmount = order.getTotal(); // Ensure 'order' is initialized before this
+        double totalAmount = order.getTotal();
         String formatted = String.format("total: €%.2f", totalAmount);
         totalText.setText(formatted);
 
@@ -74,7 +74,7 @@ public class CustomerOrderConfirmation extends AppCompatActivity{
                                 order.getProducts().clear();
                                 order.getQuantities().clear();
                                 reservedProductAdapter.notifyDataSetChanged();
-                                listView.setAlpha(1f); // Reset for later use
+                                listView.setAlpha(1f);
                             })
                             .start();
 
@@ -152,8 +152,6 @@ public class CustomerOrderConfirmation extends AppCompatActivity{
                                 }
                                 @Override
                                 public void onAnimationEnd(Animator animation) {
-                                    Intent intent = new Intent(CustomerOrderConfirmation.this, CustomerMain.class);
-                                    startActivity(intent);
                                     finish();
                                 }
                                 @Override

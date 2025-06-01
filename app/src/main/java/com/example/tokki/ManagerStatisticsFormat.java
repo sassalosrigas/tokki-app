@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -61,7 +59,6 @@ public class ManagerStatisticsFormat extends AppCompatActivity {
                     categoryAdapter.notifyDataSetChanged();
                     categoriesListView.setOnItemClickListener((parent, view, position, id) -> {
                         String clickedItem = categories.get(position);
-                        Toast.makeText(this, "Clicked: " + clickedItem, Toast.LENGTH_SHORT).show();
                         if(function.equals("SALES_PER_STORE_CATEGORY")){
                             Intent intent = new Intent(ManagerStatisticsFormat.this, ProductView.class);
                             intent.putExtra("FUNCTION", "SALES_PER_STORE_CATEGORY");

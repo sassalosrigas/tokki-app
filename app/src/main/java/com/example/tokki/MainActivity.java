@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.customerbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Entering Customer", Toast.LENGTH_SHORT).show();
                 Customer customer = new Customer("rigas", "123", 37.986633, 23.734900);
                 Intent intent = new Intent(MainActivity.this, CustomerMain.class);
                 intent.putExtra("CUSTOMER", customer);
@@ -99,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.managerbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Entering Manager", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, ManagerMain.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);

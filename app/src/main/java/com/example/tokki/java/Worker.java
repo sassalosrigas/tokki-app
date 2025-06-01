@@ -88,11 +88,6 @@ public class Worker extends Thread{
         }
     }
 
-    public void shutdown() {
-        this.running = false;
-        this.notifyAll();
-    }
-
     public boolean addStore(Store store) {
         if(store!=null && !storeList.contains(store)) {
             synchronized (storeList) {
@@ -416,27 +411,6 @@ public class Worker extends Thread{
         return results;
     }
 
-    /*
-    public Map<String, Integer> mapShopCategorySales(String shopCategory) {
-        Map<String, Integer> results = new HashMap<>();
-        for (Store store : storeList) {
-            if (store.getFoodCategory().equals(shopCategory)) {
-                for (Product product : store.getProducts()) {
-                    String productName = product.getProductName();
-                    int sales = product.getTotalSales();
-                    if (results.containsKey(productName)) {
-                        results.put(productName, results.get(productName) + sales);
-                    } else {
-                        results.put(productName, sales);
-                    }
-                }
-            }
-        }
-        return results;
-    }
-
-     */
-
     public Map<String, Integer> mapShopCategorySales(String shopCategory) {
         Map<String, Integer> results = new HashMap<>();
         for (Store store : storeList) {
@@ -477,16 +451,5 @@ public class Worker extends Thread{
 
         return distance <= 5.0;
     }
-
-    /*
-    public boolean shouldIncludeStore(Worker worker, List<Worker> workers, String storeName) {
-        List<Integer> indices = getWorkerIndicesForStore(storeName, workers.size());
-        Worker primary = workers.get(indices.get(0));
-
-        return worker.getWorkerId() == primary.getWorkerId() ||
-                (!primary.isAlive() && worker.getWorkerId() == indices.get(1));
-    }
-
-     */
 
 }

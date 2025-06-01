@@ -13,17 +13,6 @@ public class ActionForWorkers extends Thread {
     private Worker worker;
     private Socket workerSocket;
 
-    public ActionForWorkers(Socket connection, List<Worker> workers, Master master) {
-        this.workers = workers;
-        this.master = master;
-        try {
-            out = new ObjectOutputStream(connection.getOutputStream());
-            in = new ObjectInputStream(connection.getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public ActionForWorkers(Socket workerSocket, Worker worker) {
         this.workerSocket = workerSocket;
         this.worker = worker;
@@ -51,42 +40,6 @@ public class ActionForWorkers extends Thread {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private void rebalanceStores() {
-        List<Store> allStores = new ArrayList<>();
-        for (Worker worker : workers) {
-            allStores.addAll(worker.getAllStores());
-        }
-
-        for (Worker worker : workers) {
-            worker.clearStores();
-        }
-
-        int numWorkers = workers.size();
-        Map<Integer, List<Store>> storeAssignment = new HashMap<>();
-
-        for (Store store : allStores) {
-            int workerIndex = Master.hashToNode(store.getStoreName(), numWorkers);
-            storeAssignment.computeIfAbsent(workerIndex, k -> new ArrayList<>()).add(store);
-        }
-
-        for (Map.Entry<Integer, List<Store>> entry : storeAssignment.entrySet()) {
-            int workerIndex = entry.getKey();
-            if (workerIndex < workers.size()) {
-                workers.get(workerIndex).addStores(entry.getValue());
-            }
-        }
-        System.out.println("Stores rebalanced across " + numWorkers + " workers");
-    }
-
-    public static List<Integer> getWorkerIndicesForStore(String storeName, int numOfWorkers) {
-        if (numOfWorkers == 0) {
-            throw new IllegalStateException("No workers available");
-        }
-        int mainIndex = Math.abs(storeName.hashCode()) % numOfWorkers;
-        int replicaIndex = (mainIndex + 1) % numOfWorkers;
-        return Arrays.asList(mainIndex, replicaIndex);
     }
 
     private void processRequest(WorkerFunctions request) throws IOException {
