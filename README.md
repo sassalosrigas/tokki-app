@@ -53,10 +53,10 @@ The idea behind Tokki is simple: create a responsive, sleek, and reliable food d
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="screenshots/home.png" width="250" />
+  <img src="screenshots/home_page.png" width="250" />
   <img src="screenshots/store_page.png" width="250" />
-  <img src="screenshots/checkout.png" width="250" />
-  <img src="screenshots/order_confirmed.png" width="250" />
+  <img src="screenshots/product_page.png" width="250" />
+  <img src="screenshots/order_page.png" width="250" />
 </p>
 
 
