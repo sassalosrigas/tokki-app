@@ -58,8 +58,7 @@ public class MainActivity extends AppCompatActivity {
         }
         new Thread(() -> {
             Socket masterSocket = null;  // Connect to Master
-            /*
-            kodikas gia na sindethei se ena server pou trexei eksoterika/se allh siskeuh
+            //kodikas gia na sindethei se ena server pou trexei eksoterika/se allh siskeuh
             try {
                 masterSocket = new Socket("127.0.0.1", 8080);
                 ObjectOutputStream out = null;
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 out.flush();
             } catch (RuntimeException | IOException e) {
                 throw new RuntimeException(e);
-            }*/
+            }
             boolean isAdded = Manager.addStore(MainActivity.this, "store.json");
             Manager.addStore(MainActivity.this, "store2.json");
             Manager.addStore(MainActivity.this, "store3.json");
