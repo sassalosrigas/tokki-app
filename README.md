@@ -1,4 +1,4 @@
-# 🍱 Tokki — Distributed Food Delivery App
+# Tokki — Distributed Food Delivery App
 
 **Tokki** is a trendy, minimalistic food delivery app designed and developed as part of the *Distributed Systems* course at the Athens University of Economics and Business.
 
